@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "vvm-rb"
   gem.homepage = "http://github.com/calorie/vvm-rb"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{vim version manager}
+  gem.description = %Q{vim version manager}
   gem.email = "s2g4t1n2@gmail.com"
   gem.authors = ["Yuu Shigetani"]
   # dependencies defined in Gemfile
