@@ -2,8 +2,20 @@
 
 Description goes here.
 
+== Install
+
+  $ rake build
+  $ rake install
+
+== Usage
+
+  $ vvm-rb install v7-4
+  $ vvm-rb install v7-4-035
+  $ vvm-rb use v7-4
+  $ vvm-rb uninstall v7-4-035
+
 == Contributing to vvm-rb
- 
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
 * Fork the project.
