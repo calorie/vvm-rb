@@ -14,6 +14,8 @@ test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
 
   $ vvm-rb install v7-4
   $ vvm-rb install v7-4-035
+  $ vvm-rb reinstall v7-4
+  $ vvm-rb rebuild v7-4 --enable-rubyinterp --enable-pythoninterp
   $ vvm-rb use v7-4
   $ vvm-rb uninstall v7-4-035
 
