@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
-gemspec
+gem 'rake'
+gem 'thor'
 
 group :development do
   gem 'rspec'
