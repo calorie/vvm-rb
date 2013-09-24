@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/calorie/vvm-rb"
   gem.license = "MIT"
   gem.summary = %Q{vim version manager}
-  gem.description = %Q{vvm-rb can manage multiple vim's versions & switch each other.}
+  gem.description = %Q{vim version manager.}
   gem.email = "s2g4t1n2@gmail.com"
   gem.authors = ["Yuu Shigetani"]
   # dependencies defined in Gemfile
