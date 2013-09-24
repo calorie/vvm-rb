@@ -57,3 +57,15 @@ def clear_consts
     Object.send(:remove_const, const) if Object.const_defined?(const)
   end
 end
+
+def capture(stream)
+  begin
+    stream = stream.to_s
+    eval "$#{stream} = StringIO.new"
+    yield
+    result = eval("$#{stream}").string
+  ensure
+    eval("$#{stream} = #{stream.upcase}")
+  end
+  result
+end

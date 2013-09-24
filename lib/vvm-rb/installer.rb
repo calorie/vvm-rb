@@ -51,7 +51,7 @@ class Installer
   end
 
   def cp_etc
-    if !Dir.exists?(ETC_DIR) || !File.exists?(get_login_file)
+    unless File.exists?(get_login_file)
       FileUtils.mkdir_p(ETC_DIR)
 
       login = File.expand_path(File.dirname(__FILE__) + '/../../etc/login')
