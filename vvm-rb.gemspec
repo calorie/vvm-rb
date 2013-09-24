@@ -10,35 +10,67 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Yuu Shigetani"]
-  s.date = "2013-09-22"
-  s.description = "vim version manager"
+  s.date = "2013-09-24"
+  s.description = "vvm-rb can manage multiple vim's versions & switch each other."
   s.email = "s2g4t1n2@gmail.com"
+  s.executables = ["vvm-rb"]
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
   ]
-  s.files       = `git ls-files`.split("\n")
-  s.test_files  = `git ls-files -- spec/*`.split("\n")
-  s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.files = [
+    ".document",
+    ".rspec",
+    "Gemfile",
+    "LICENSE.txt",
+    "README.rdoc",
+    "Rakefile",
+    "VERSION",
+    "bin/vvm-rb",
+    "etc/login",
+    "lib/vvm-rb.rb",
+    "lib/vvm-rb/cli.rb",
+    "lib/vvm-rb/constants.rb",
+    "lib/vvm-rb/installer.rb",
+    "lib/vvm-rb/switcher.rb",
+    "lib/vvm-rb/uninstaller.rb",
+    "lib/vvm-rb/validator.rb",
+    "spec/cli_spec.rb",
+    "spec/installer_spec.rb",
+    "spec/spec_helper.rb",
+    "spec/switcher_spec.rb",
+    "spec/uninstaller_spec.rb",
+    "spec/vvm-rb_spec.rb",
+    "vvm-rb.gemspec"
+  ]
   s.homepage = "http://github.com/calorie/vvm-rb"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "2.1.3"
   s.summary = "vim version manager"
 
-  s.add_dependency 'thor', '>= 0.14.5'
-  s.add_dependency 'rake', '>= 0.8.7'
-
   if s.respond_to? :specification_version then
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<vvm-rb>, [">= 0"])
+      s.add_development_dependency(%q<rspec>, [">= 0"])
+      s.add_development_dependency(%q<rdoc>, [">= 0"])
+      s.add_development_dependency(%q<bundler>, [">= 0"])
+      s.add_development_dependency(%q<jeweler>, [">= 0"])
+      s.add_development_dependency(%q<simplecov>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<rdoc>, [">= 0"])
       s.add_development_dependency(%q<bundler>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<simplecov>, [">= 0"])
     else
+      s.add_dependency(%q<vvm-rb>, [">= 0"])
+      s.add_dependency(%q<rspec>, [">= 0"])
+      s.add_dependency(%q<rdoc>, [">= 0"])
+      s.add_dependency(%q<bundler>, [">= 0"])
+      s.add_dependency(%q<jeweler>, [">= 0"])
+      s.add_dependency(%q<simplecov>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<rdoc>, [">= 0"])
       s.add_dependency(%q<bundler>, [">= 0"])
@@ -46,6 +78,12 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<simplecov>, [">= 0"])
     end
   else
+    s.add_dependency(%q<vvm-rb>, [">= 0"])
+    s.add_dependency(%q<rspec>, [">= 0"])
+    s.add_dependency(%q<rdoc>, [">= 0"])
+    s.add_dependency(%q<bundler>, [">= 0"])
+    s.add_dependency(%q<jeweler>, [">= 0"])
+    s.add_dependency(%q<simplecov>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<rdoc>, [">= 0"])
     s.add_dependency(%q<bundler>, [">= 0"])
