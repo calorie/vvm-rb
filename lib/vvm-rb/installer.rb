@@ -14,6 +14,30 @@ class Installer
     configure
     make_install
     cp_etc
+
+    print "\e[32m"
+    puts <<-EOS
+
+Vim is successfully installed.  For daily use,
+please add the following line into your ~/.bash_login etc:
+
+test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
+
+    EOS
+    print "\e[0m"
+  end
+
+  def rebuild
+    make_clean
+    configure
+    make_install
+
+    print "\e[32m"
+    puts <<-EOS
+
+Vim is successfully rebuilded.
+    EOS
+    print "\e[0m"
   end
 
   def fetch
@@ -43,10 +67,17 @@ class Installer
     end
   end
 
+  def make_clean
+    src_dir = get_src_dir(@version)
+    Dir.chdir src_dir do
+      system('make clean')
+    end
+  end
+
   def make_install
     src_dir = get_src_dir(@version)
     Dir.chdir src_dir do
-      system("make all install")
+      system('make all install')
     end
   end
 

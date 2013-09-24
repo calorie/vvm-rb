@@ -9,6 +9,22 @@ describe 'Cli' do
     end
   end
 
+  describe 'reinstall' do
+    let(:output) { capture(:stdout) { Cli.start('reinstall v7-4-001'.split)} }
+
+    it 'success' do
+      expect(output).to match(/Vim is successfully installed/)
+    end
+  end
+
+  describe 'rebuild' do
+    let(:output) { capture(:stdout) { Cli.start('rebuild v7-4-001'.split)} }
+
+    it 'success' do
+      expect(output).to match(/Vim is successfully rebuilded/)
+    end
+  end
+
   describe 'use' do
     let(:output) { capture(:stdout) { Cli.start('use v7-4'.split)} }
 

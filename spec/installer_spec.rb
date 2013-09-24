@@ -57,4 +57,21 @@ describe 'Installer' do
       end
     end
   end
+
+  describe 'rebuild' do
+    before :all do
+      @version = 'v7-4'
+      @installer = Installer.new(@version, [])
+    end
+
+    context 'make_clean' do
+      before :all do
+        @installer.make_clean
+      end
+
+      it 'not exists objects dir' do
+        expect(Dir["#{SRC_DIR}/#{@version}/src/objects/*"].empty?).to be_true
+      end
+    end
+  end
 end

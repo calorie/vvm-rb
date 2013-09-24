@@ -11,16 +11,20 @@ class Cli < Thor
   def install(version, *conf)
     installer = Installer.new(version, conf)
     installer.install
-    print "\e[32m"
-    puts <<-EOS
+  end
 
-Vim is successfully installed.  For daily use,
-please add the following line into your ~/.bash_login etc:
+  desc 'reinstall [TAG] [options]', 'Reinstall a specific version of Vim'
+  def reinstall(version, *conf)
+    uninstaller = Uninstaller.new(version)
+    uninstaller.uninstall
+    installer = Installer.new(version, conf)
+    installer.install
+  end
 
-test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
-
-    EOS
-    print "\e[0m"
+  desc 'rebuild [TAG] [options]', 'Rebuild a specific version of Vim, then install it'
+  def rebuild(version, *conf)
+    installer = Installer.new(version, conf)
+    installer.rebuild
   end
 
   desc 'use [TAG]', 'Use a specific version of Vim as the default one.'
