@@ -24,8 +24,11 @@ or
 == Usage
 please add the following line into your ~/.bash_login etc:
 
-test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
+  test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
 
+commands
+
+  $ vvm-rb help
   $ vvm-rb install v7-4
   $ vvm-rb install v7-4-035
   $ vvm-rb reinstall v7-4
