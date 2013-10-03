@@ -33,6 +33,11 @@ class Cli < Thor
     switcher.use
   end
 
+  desc 'versions', 'Look installed vim versions.'
+  def versions
+    Dir.glob("#{VIMS_DIR}/v*").sort.each{ |d| puts File.basename(d) }
+  end
+
   desc 'uninstall [TAG]', 'Uninstall a specific version of Vim.'
   def uninstall(version)
     uninstaller = Uninstaller.new(version)

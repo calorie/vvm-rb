@@ -33,6 +33,14 @@ describe 'Cli' do
     end
   end
 
+  describe 'versions' do
+    let(:output) { capture(:stdout) { Cli.start('versions'.split)} }
+
+    it 'echo installed vim versions' do
+      expect(output).to eq("v7-3-969\nv7-4\nv7-4-001\n")
+    end
+  end
+
   describe 'uninstall' do
     let(:output) { capture(:stdout) { Cli.start('uninstall v7-3-969'.split)} }
 
