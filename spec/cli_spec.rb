@@ -33,6 +33,14 @@ describe 'Cli' do
     end
   end
 
+  describe 'list' do
+    let(:output) { capture(:stdout) { Cli.start('list'.split)} }
+
+    it 'echo available vim versions' do
+      expect(output).to match(/start\n(v7-.+\n)+tip$/)
+    end
+  end
+
   describe 'versions' do
     let(:output) { capture(:stdout) { Cli.start('versions'.split)} }
 

@@ -1,7 +1,6 @@
 require 'fileutils'
 
 class Installer
-  include Validator
 
   def initialize(version, conf = nil)
     @version = version
@@ -41,8 +40,12 @@ Vim is successfully rebuilded.
   end
 
   def fetch
+    Installer.fetch
+  end
+
+  def self.fetch
     FileUtils.mkdir_p(REPOS_DIR)
-    repos_dir = get_repos_dir
+    repos_dir = VIMORG_DIR
     unless Dir.exists?(repos_dir)
       system("hg clone #{VIM_URI} #{repos_dir}")
     end
@@ -51,7 +54,7 @@ Vim is successfully rebuilded.
 
   def checkout
     FileUtils.mkdir_p(SRC_DIR)
-    repos_dir = get_repos_dir
+    repos_dir = VIMORG_DIR
     src_dir = get_src_dir(@version)
     unless Dir.exists?(src_dir)
       system("cd #{repos_dir} && hg archive -t tar -r #{@version} -p #{@version} - | (cd #{SRC_DIR} && tar xf -)")
@@ -82,7 +85,7 @@ Vim is successfully rebuilded.
   end
 
   def cp_etc
-    unless File.exists?(get_login_file)
+    unless File.exists?(LOGIN_FILE)
       FileUtils.mkdir_p(ETC_DIR)
 
       login = File.expand_path(File.dirname(__FILE__) + '/../../etc/login')
@@ -90,13 +93,7 @@ Vim is successfully rebuilded.
     end
   end
 
-  before(:fetch, :checkout) { validations }
-
   private
-
-  def get_repos_dir
-    return "#{REPOS_DIR}/vimorg"
-  end
 
   def get_src_dir(version)
     return "#{SRC_DIR}/#{version}"
@@ -104,9 +101,5 @@ Vim is successfully rebuilded.
 
   def get_vims_dir(version)
     return "#{VIMS_DIR}/#{version}"
-  end
-
-  def get_login_file
-    return "#{ETC_DIR}/login"
   end
 end

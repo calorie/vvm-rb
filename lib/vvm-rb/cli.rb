@@ -6,6 +6,7 @@ require 'vvm-rb/switcher'
 
 class Cli < Thor
   include Thor::Actions
+  include Validator
 
   desc 'install [TAG] [options]', 'Install a specific version of Vim'
   def install(version, *conf)
@@ -33,6 +34,15 @@ class Cli < Thor
     switcher.use
   end
 
+  desc 'list', 'Look available vim versions'
+  def list
+    Installer.fetch
+    Dir.chdir(VIMORG_DIR) do
+      list = `hg tags`.split.reverse
+      puts list.values_at(* list.each_index.select {|i| i.odd?}).join("\n")
+    end
+  end
+
   desc 'versions', 'Look installed vim versions.'
   def versions
     Dir.glob("#{VIMS_DIR}/v*").sort.each{ |d| puts File.basename(d) }
@@ -43,4 +53,6 @@ class Cli < Thor
     uninstaller = Uninstaller.new(version)
     uninstaller.uninstall
   end
+
+  before(:install, :reinstall, :rebuild, :list) { validations }
 end
