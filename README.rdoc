@@ -34,6 +34,8 @@ commands
   $ vvm-rb reinstall v7-4
   $ vvm-rb rebuild v7-4 --enable-rubyinterp --enable-pythoninterp
   $ vvm-rb use v7-4
+  $ vvm-rb list
+  $ vvm-rb versions
   $ vvm-rb uninstall v7-4-035
 
 == Contributing to vvm-rb
