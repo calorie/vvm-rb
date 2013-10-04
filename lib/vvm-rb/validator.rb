@@ -14,13 +14,16 @@ module Validator
       end
     end
 
-    def validations
-      check_hg
-    end
-
     def check_hg
       unless Kernel.system('hg --version > /dev/null')
         abort 'mercurial is required to install.'
+      end
+      return true
+    end
+
+    def check_tag
+      unless $*[1] =~ /(^start$|^tip$|^v7-.+$)/
+        abort 'undefined vim version. please run [ vvm-rb list ] and check available versions.'
       end
       return true
     end

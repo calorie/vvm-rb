@@ -52,7 +52,8 @@ test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
     Uninstaller.new(version).uninstall
   end
 
-  before_method(:install, :reinstall, :rebuild, :list) { validations }
+  before_method(:install, :reinstall, :rebuild, :list) { check_hg }
+  before_method(:install, :reinstall, :rebuild, :use, :uninstall) { check_tag }
 
   private
 
