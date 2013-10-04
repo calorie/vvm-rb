@@ -2,50 +2,14 @@ require 'fileutils'
 
 class Installer
 
-  def initialize(version, conf = nil)
+  def initialize(version, conf = [])
     @version = version
     @conf    = conf
   end
 
-  def install
-    fetch
-    checkout
-    configure
-    make_install
-    cp_etc
-
-    print "\e[32m"
-    puts <<-EOS
-
-Vim is successfully installed.  For daily use,
-please add the following line into your ~/.bash_login etc:
-
-test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
-
-    EOS
-    print "\e[0m"
-  end
-
-  def rebuild
-    make_clean
-    configure
-    make_install
-
-    print "\e[32m"
-    puts <<-EOS
-
-Vim is successfully rebuilded.
-    EOS
-    print "\e[0m"
-  end
-
   def fetch
-    Installer.fetch
-  end
-
-  def self.fetch
-    FileUtils.mkdir_p(REPOS_DIR)
-    repos_dir = VIMORG_DIR
+    FileUtils.mkdir_p(get_repos_dir)
+    repos_dir = get_vimorg_dir
     unless Dir.exists?(repos_dir)
       system("hg clone #{VIM_URI} #{repos_dir}")
     end
@@ -53,11 +17,11 @@ Vim is successfully rebuilded.
   end
 
   def checkout
-    FileUtils.mkdir_p(SRC_DIR)
-    repos_dir = VIMORG_DIR
-    src_dir = get_src_dir(@version)
-    unless Dir.exists?(src_dir)
-      system("cd #{repos_dir} && hg archive -t tar -r #{@version} -p #{@version} - | (cd #{SRC_DIR} && tar xf -)")
+    repos_dir = get_vimorg_dir
+    src_dir = get_src_dir
+    FileUtils.mkdir_p(src_dir)
+    unless Dir.exists?(get_src_dir(@version))
+      system("cd #{repos_dir} && hg archive -t tar -r #{@version} -p #{@version} - | (cd #{src_dir} && tar xf -)")
     end
   end
 
@@ -85,21 +49,11 @@ Vim is successfully rebuilded.
   end
 
   def cp_etc
-    unless File.exists?(LOGIN_FILE)
-      FileUtils.mkdir_p(ETC_DIR)
-
+    unless File.exists?(get_login_file)
+      etc_dir = get_etc_dir
+      FileUtils.mkdir_p(etc_dir)
       login = File.expand_path(File.dirname(__FILE__) + '/../../etc/login')
-      FileUtils.cp(login, ETC_DIR)
+      FileUtils.cp(login, etc_dir)
     end
-  end
-
-  private
-
-  def get_src_dir(version)
-    return "#{SRC_DIR}/#{version}"
-  end
-
-  def get_vims_dir(version)
-    return "#{VIMS_DIR}/#{version}"
   end
 end

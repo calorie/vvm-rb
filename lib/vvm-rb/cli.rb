@@ -1,8 +1,4 @@
 require 'thor'
-require 'vvm-rb/validator'
-require 'vvm-rb/installer'
-require 'vvm-rb/uninstaller'
-require 'vvm-rb/switcher'
 
 class Cli < Thor
   include Thor::Actions
@@ -10,49 +6,69 @@ class Cli < Thor
 
   desc 'install [TAG] [options]', 'Install a specific version of Vim'
   def install(version, *conf)
-    installer = Installer.new(version, conf)
-    installer.install
+    installer(version, conf)
+
+    print "\e[32m"
+    puts <<-EOS
+
+Vim is successfully installed.  For daily use,
+please add the following line into your ~/.bash_login etc:
+
+test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
+
+    EOS
+    print "\e[0m"
   end
 
   desc 'reinstall [TAG] [options]', 'Reinstall a specific version of Vim'
   def reinstall(version, *conf)
-    uninstaller = Uninstaller.new(version)
-    uninstaller.uninstall
-    installer = Installer.new(version, conf)
-    installer.install
+    Uninstaller.new(version).uninstall
+    installer(version, conf)
   end
 
   desc 'rebuild [TAG] [options]', 'Rebuild a specific version of Vim, then install it'
   def rebuild(version, *conf)
-    installer = Installer.new(version, conf)
-    installer.rebuild
+    rebuilder(version, conf)
   end
 
   desc 'use [TAG]', 'Use a specific version of Vim as the default one.'
   def use(version)
-    switcher = Switcher.new(version)
-    switcher.use
+    Switcher.new(version).use
   end
 
   desc 'list', 'Look available vim versions'
   def list
-    Installer.fetch
-    Dir.chdir(VIMORG_DIR) do
-      list = `hg tags`.split.reverse
-      puts list.values_at(* list.each_index.select {|i| i.odd?}).join("\n")
-    end
+    Installer.new('dummy').fetch
+    puts Version.list
   end
 
   desc 'versions', 'Look installed vim versions.'
   def versions
-    Dir.glob("#{VIMS_DIR}/v*").sort.each{ |d| puts File.basename(d) }
+    puts Version.versions
   end
 
   desc 'uninstall [TAG]', 'Uninstall a specific version of Vim.'
   def uninstall(version)
-    uninstaller = Uninstaller.new(version)
-    uninstaller.uninstall
+    Uninstaller.new(version).uninstall
   end
 
-  before(:install, :reinstall, :rebuild, :list) { validations }
+  before_method(:install, :reinstall, :rebuild, :list) { validations }
+
+  private
+
+  def installer(version, conf)
+    i = Installer.new(version, conf)
+    i.fetch
+    i.checkout
+    i.configure
+    i.make_install
+    i.cp_etc
+  end
+
+  def rebuilder(version, conf)
+    r = Installer.new(version, conf)
+    r.make_clean
+    r.configure
+    r.make_install
+  end
 end

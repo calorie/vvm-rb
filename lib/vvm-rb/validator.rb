@@ -4,7 +4,7 @@ module Validator
   end
 
   module ClassMethods
-    def before(*names)
+    def before_method(*names)
       names.each do |name|
         m = instance_method(name)
         define_method(name) do |*args, &block|
@@ -19,8 +19,9 @@ module Validator
     end
 
     def check_hg
-      `hg --version`
-      abort 'mercurial is required to install.' unless $?.success?
+      unless Kernel.system('hg --version > /dev/null')
+        abort 'mercurial is required to install.'
+      end
       return true
     end
   end

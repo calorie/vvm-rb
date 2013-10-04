@@ -1,8 +1,14 @@
 #!/usr/bin/env ruby
 
-require 'rubygems'
-require 'vvm-rb/cli'
-require 'vvm-rb/constants'
+begin
+  require 'vvm-rb'
+  require 'vvm-rb/cli'
+rescue LoadError
+  require 'rubygems'
+  require 'vvm-rb'
+  require 'vvm-rb/cli'
+end
 
+include VvmRb
 Cli.source_root(File.dirname(__FILE__) + '/..')
 Cli.start

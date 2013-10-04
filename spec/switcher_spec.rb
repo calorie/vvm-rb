@@ -5,20 +5,23 @@ describe 'Switcher' do
     context 'system vim' do
       before :all do
         switcher = Switcher.new('system')
+        switcher.dot_dir = @vvm_tmp
         switcher.use
       end
 
       it 'delete current' do
-        expect(Dir.exists?("#{VIMS_DIR}/current")).not_to be_true
+        expect(Dir.exists?(get_current_dir)).not_to be_true
       end
     end
 
     context 'different version' do
       before :all do
-        switcher = Switcher.new('v7-4')
+        version = 'v7-4'
+        switcher = Switcher.new(version)
+        switcher.dot_dir = @vvm_tmp
         switcher.use
-        @vims_dir = "#{VIMS_DIR}/v7-4"
-        @current  = "#{VIMS_DIR}/current"
+        @vims_dir = get_vims_dir(version)
+        @current  = get_current_dir
       end
 
       it 'exist current' do
@@ -33,6 +36,7 @@ describe 'Switcher' do
     context 'unknown version' do
       before :all do
         @switcher = Switcher.new('v7-5')
+        @switcher.dot_dir = @vvm_tmp
       end
 
       it 'raise error' do

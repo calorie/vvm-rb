@@ -1,15 +1,15 @@
-require 'fileutils'
 require 'spec_helper'
 
 describe 'Installer' do
   describe 'install' do
     before :all do
-      Cli.start('uninstall v7-3-969'.split)
-      Cli.start('uninstall v7-4'.split)
-      FileUtils.rm_rf(REPOS_DIR)
-      FileUtils.rm_rf(ETC_DIR)
+      FileUtils.rm_rf(get_src_dir)
+      FileUtils.rm_rf(get_vims_dir)
+      FileUtils.rm_rf(get_repos_dir)
+      FileUtils.rm_rf(get_etc_dir)
       @version = 'v7-4'
-      @installer = Installer.new(@version, [])
+      @installer = Installer.new(@version)
+      @installer.dot_dir = @vvm_tmp
     end
 
     context 'fetch' do
@@ -18,7 +18,7 @@ describe 'Installer' do
       end
 
       it 'exists vimorg dir' do
-        expect(Dir.exists?("#{REPOS_DIR}/vimorg")).to be_true
+        expect(Dir.exists?(get_vimorg_dir)).to be_true
       end
     end
 
@@ -28,7 +28,7 @@ describe 'Installer' do
       end
 
       it 'exists src dir' do
-        expect(Dir.exists?("#{SRC_DIR}/#{@version}")).to be_true
+        expect(Dir.exists?(get_src_dir(@version))).to be_true
       end
     end
 
@@ -39,7 +39,7 @@ describe 'Installer' do
       end
 
       it 'exists vims dir' do
-        expect(Dir.exists?("#{VIMS_DIR}/#{@version}")).to be_true
+        expect(Dir.exists?(get_vims_dir(@version))).to be_true
       end
     end
 
@@ -49,11 +49,11 @@ describe 'Installer' do
       end
 
       it 'exists etc dir' do
-        expect(Dir.exists?(ETC_DIR)).to be_true
+        expect(Dir.exists?(get_etc_dir)).to be_true
       end
 
       it 'exists login file' do
-        expect(File.exists?("#{ETC_DIR}/login")).to be_true
+        expect(File.exists?(get_login_file)).to be_true
       end
     end
   end
@@ -61,7 +61,8 @@ describe 'Installer' do
   describe 'rebuild' do
     before :all do
       @version = 'v7-4'
-      @installer = Installer.new(@version, [])
+      @installer = Installer.new(@version)
+      @installer.dot_dir = @vvm_tmp
     end
 
     context 'make_clean' do
@@ -70,7 +71,7 @@ describe 'Installer' do
       end
 
       it 'not exists objects dir' do
-        expect(Dir["#{SRC_DIR}/#{@version}/src/objects/*"].empty?).to be_true
+        expect(Dir["#{get_src_dir(@version)}/src/objects/*"].empty?).to be_true
       end
     end
   end

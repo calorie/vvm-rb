@@ -15,69 +15,35 @@ require 'rspec'
 require 'fileutils'
 require 'tmpdir'
 require 'vvm-rb'
+include VvmRb
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 RSpec.configure do |config|
   config.before :suite do
-    clear_consts
-    CACHE_DIR = File.expand_path(File.join(File.dirname(__FILE__), '..', '.vvm_cache'))
-    DOT_DIR    = CACHE_DIR
-    ETC_DIR    = "#{DOT_DIR}/etc"
-    REPOS_DIR  = "#{DOT_DIR}/repos"
-    SRC_DIR    = "#{DOT_DIR}/src"
-    VIMS_DIR   = "#{DOT_DIR}/vims"
-    VIMORG_DIR = "#{REPOS_DIR}/vimorg"
-    LOGIN_FILE = "#{ETC_DIR}/login"
-    VIM_URI    = 'https://vim.googlecode.com/hg/'
-    unless Dir.exists?(CACHE_DIR)
-      FileUtils.mkdir_p(CACHE_DIR)
-      Cli.start('install v7-3-969'.split)
-      Cli.start('install v7-4'.split)
+    cache_dir = get_cache_dir
+    unless Dir.exists?(cache_dir)
+      FileUtils.mkdir_p(cache_dir)
+      %w{ v7-3-969 v7-4 }.each do |v|
+        i = Installer.new(v)
+        i.dot_dir = cache_dir
+        i.fetch
+        i.checkout
+        i.configure
+        i.make_install
+        i.cp_etc
+      end
     end
   end
 
   config.before :all do
-    clear_consts
     @tmp = Dir.mktmpdir
-    FileUtils.cp_r(CACHE_DIR, @tmp)
-    DOT_DIR    = File.expand_path(File.join(@tmp, '.vvm_cache'))
-    ETC_DIR    = "#{DOT_DIR}/etc"
-    REPOS_DIR  = "#{DOT_DIR}/repos"
-    SRC_DIR    = "#{DOT_DIR}/src"
-    VIMS_DIR   = "#{DOT_DIR}/vims"
-    VIMORG_DIR = "#{REPOS_DIR}/vimorg"
-    LOGIN_FILE = "#{ETC_DIR}/login"
+    FileUtils.cp_r(get_cache_dir, @tmp)
+    @vvm_tmp = File.expand_path(File.join(@tmp, '.vvm_cache'))
+    self.dot_dir = @vvm_tmp
   end
 
   config.after :all do
     FileUtils.rm_rf(@tmp)
   end
-end
-
-def clear_consts
-  %w{
-    DOT_DIR
-    ETC_DIR
-    REPOS_DIR
-    SRC_DIR
-    VIMS_DIR
-    VIMORG_DIR
-    LOGIN_FILE
-  }.each do |c|
-    const = c.to_sym
-    Object.send(:remove_const, const) if Object.const_defined?(const)
-  end
-end
-
-def capture(stream)
-  begin
-    stream = stream.to_s
-    eval "$#{stream} = StringIO.new"
-    yield
-    result = eval("$#{stream}").string
-  ensure
-    eval("$#{stream} = #{stream.upcase}")
-  end
-  result
 end

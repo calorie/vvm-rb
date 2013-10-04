@@ -6,7 +6,7 @@ class Switcher
   end
 
   def use
-    current = get_current
+    current = get_current_dir
     if Dir.exists?(current)
       FileUtils.rm(current)
     end
@@ -17,15 +17,5 @@ class Switcher
       end
       FileUtils.ln_s(vims_dir, current)
     end
-  end
-
-  private
-
-  def get_current
-    return "#{VIMS_DIR}/current"
-  end
-
-  def get_vims_dir(version)
-    return "#{VIMS_DIR}/#{version}"
   end
 end

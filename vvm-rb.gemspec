@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Yuu Shigetani"]
-  s.date = "2013-09-24"
+  s.date = "2013-10-03"
   s.description = "vim version manager."
   s.email = "s2g4t1n2@gmail.com"
   s.executables = ["vvm-rb"]
@@ -19,8 +19,10 @@ Gem::Specification.new do |s|
     "README.rdoc"
   ]
   s.files = [
+    ".coveralls.yml",
     ".document",
     ".rspec",
+    ".travis.yml",
     "Gemfile",
     "LICENSE.txt",
     "README.rdoc",
@@ -29,6 +31,7 @@ Gem::Specification.new do |s|
     "bin/vvm-rb",
     "etc/login",
     "lib/vvm-rb.rb",
+    "lib/vvm-rb/accesser.rb",
     "lib/vvm-rb/cli.rb",
     "lib/vvm-rb/constants.rb",
     "lib/vvm-rb/installer.rb",
@@ -46,7 +49,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/calorie/vvm-rb"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "2.1.3"
+  s.rubygems_version = "2.1.5"
   s.summary = "vim version manager"
 
   if s.respond_to? :specification_version then
@@ -60,6 +63,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<bundler>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<simplecov>, [">= 0"])
+      s.add_development_dependency(%q<coveralls>, [">= 0"])
     else
       s.add_dependency(%q<rake>, [">= 0"])
       s.add_dependency(%q<thor>, [">= 0"])
@@ -68,6 +72,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<bundler>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<simplecov>, [">= 0"])
+      s.add_dependency(%q<coveralls>, [">= 0"])
     end
   else
     s.add_dependency(%q<rake>, [">= 0"])
@@ -77,6 +82,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<bundler>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<simplecov>, [">= 0"])
+    s.add_dependency(%q<coveralls>, [">= 0"])
   end
 end
 

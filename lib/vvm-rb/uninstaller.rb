@@ -6,7 +6,7 @@ class Uninstaller
   end
 
   def uninstall
-    current  = get_current
+    current  = get_current_dir
     vims_dir = get_vims_dir(@version)
     src_dir  = get_src_dir(@version)
     if Dir.exists?(current)
@@ -21,19 +21,5 @@ class Uninstaller
     if Dir.exists?(vims_dir)
       FileUtils.rm_rf(vims_dir)
     end
-  end
-
-  private
-
-  def get_current
-    return "#{VIMS_DIR}/current"
-  end
-
-  def get_vims_dir(version)
-    return "#{VIMS_DIR}/#{version}"
-  end
-
-  def get_src_dir(version)
-    return "#{SRC_DIR}/#{version}"
   end
 end
