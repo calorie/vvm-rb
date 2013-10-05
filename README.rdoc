@@ -38,6 +38,11 @@ commands
   $ vvm-rb versions
   $ vvm-rb uninstall v7-4-035
 
+== Uninstall
+
+  $ gem uninstall vvm-rb
+  $ rm -rf ~/.vvm-rb
+
 == Contributing to vvm-rb
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
