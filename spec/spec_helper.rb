@@ -22,7 +22,7 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 RSpec.configure do |config|
   config.before :suite do
     cache_dir = get_cache_dir
-    unless Dir.exists?(cache_dir)
+    unless File.exists?(cache_dir)
       FileUtils.mkdir_p(cache_dir)
       %w{ v7-3-969 v7-4 }.each do |v|
         i = Installer.new(v)

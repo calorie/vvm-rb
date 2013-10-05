@@ -18,7 +18,7 @@ describe 'Installer' do
       end
 
       it 'exists vimorg dir' do
-        expect(Dir.exists?(get_vimorg_dir)).to be_true
+        expect(File.exists?(get_vimorg_dir)).to be_true
       end
     end
 
@@ -28,7 +28,7 @@ describe 'Installer' do
       end
 
       it 'exists src dir' do
-        expect(Dir.exists?(get_src_dir(@version))).to be_true
+        expect(File.exists?(get_src_dir(@version))).to be_true
       end
     end
 
@@ -39,7 +39,7 @@ describe 'Installer' do
       end
 
       it 'exists vims dir' do
-        expect(Dir.exists?(get_vims_dir(@version))).to be_true
+        expect(File.exists?(get_vims_dir(@version))).to be_true
       end
     end
 
@@ -49,7 +49,7 @@ describe 'Installer' do
       end
 
       it 'exists etc dir' do
-        expect(Dir.exists?(get_etc_dir)).to be_true
+        expect(File.exists?(get_etc_dir)).to be_true
       end
 
       it 'exists login file' do

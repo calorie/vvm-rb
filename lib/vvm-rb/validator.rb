@@ -9,7 +9,7 @@ module Validator
         m = instance_method(name)
         define_method(name) do |*args, &block|
           yield
-          m.bind(self).(*args, &block)
+          m.bind(self).call(*args, &block)
         end
       end
     end
@@ -22,7 +22,7 @@ module Validator
     end
 
     def check_tag
-      unless $*[1] =~ /(^start$|^tip$|^v7-.+$)/
+      unless $*[1] =~ /(^start$|^tip$|^v7-.+$|^system$)/
         abort 'undefined vim version. please run [ vvm-rb list ] and check available versions.'
       end
       return true

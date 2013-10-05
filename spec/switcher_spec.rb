@@ -10,7 +10,7 @@ describe 'Switcher' do
       end
 
       it 'delete current' do
-        expect(Dir.exists?(get_current_dir)).not_to be_true
+        expect(File.exists?(get_current_dir)).not_to be_true
       end
     end
 
@@ -25,7 +25,7 @@ describe 'Switcher' do
       end
 
       it 'exist current' do
-        expect(Dir.exists?(@current)).to be_true
+        expect(File.exists?(@current)).to be_true
       end
 
       it 'switch current' do
