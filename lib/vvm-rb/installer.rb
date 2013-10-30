@@ -5,6 +5,7 @@ class Installer
   def initialize(version, conf = [])
     @version = version
     @conf    = conf
+    self.dot_dir = ENV['VVMROOT'] unless ENV['VVMROOT'].nil?
   end
 
   def fetch

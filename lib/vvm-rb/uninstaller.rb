@@ -3,6 +3,7 @@ require 'fileutils'
 class Uninstaller
   def initialize(version)
     @version = version
+    self.dot_dir = ENV['VVMROOT'] unless ENV['VVMROOT'].nil?
   end
 
   def uninstall

@@ -39,12 +39,12 @@ test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
   desc 'list', 'Look available vim versions'
   def list
     Installer.new('dummy').fetch
-    puts Version.list
+    puts Version.new.list
   end
 
   desc 'versions', 'Look installed vim versions.'
   def versions
-    puts Version.versions
+    puts Version.new.versions
   end
 
   desc 'uninstall [TAG]', 'Uninstall a specific version of Vim.'
