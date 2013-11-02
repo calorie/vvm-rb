@@ -3,7 +3,6 @@ require 'fileutils'
 class Switcher
   def initialize(version)
     @version = version
-    self.dot_dir = ENV['VVMROOT'] unless ENV['VVMROOT'].nil?
   end
 
   def use

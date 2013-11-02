@@ -4,9 +4,7 @@ describe 'Switcher' do
   describe 'use' do
     context 'system vim' do
       before :all do
-        switcher = Switcher.new('system')
-        switcher.dot_dir = @vvm_tmp
-        switcher.use
+        Switcher.new('system').use
       end
 
       it 'delete current' do
@@ -17,9 +15,7 @@ describe 'Switcher' do
     context 'different version' do
       before :all do
         version = 'v7-4'
-        switcher = Switcher.new(version)
-        switcher.dot_dir = @vvm_tmp
-        switcher.use
+        Switcher.new(version).use
         @vims_dir = get_vims_dir(version)
         @current  = get_current_dir
       end
@@ -36,7 +32,6 @@ describe 'Switcher' do
     context 'unknown version' do
       before :all do
         @switcher = Switcher.new('v7-5')
-        @switcher.dot_dir = @vvm_tmp
       end
 
       it 'raise error' do

@@ -9,7 +9,6 @@ describe 'Installer' do
       FileUtils.rm_rf(get_etc_dir)
       @version = 'v7-4'
       @installer = Installer.new(@version)
-      @installer.dot_dir = @vvm_tmp
     end
 
     context 'fetch' do
@@ -62,7 +61,6 @@ describe 'Installer' do
     before :all do
       @version = 'v7-4'
       @installer = Installer.new(@version)
-      @installer.dot_dir = @vvm_tmp
     end
 
     context 'make_clean' do

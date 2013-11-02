@@ -1,10 +1,8 @@
 module Accesser
-  attr_writer :dot_dir
-
   module_function
 
   def get_dot_dir
-    return File.expand_path(@dot_dir || '~/.vvm-rb')
+    return File.expand_path(ENV['VVMROOT'] || '~/.vvm-rb')
   end
 
   def get_etc_dir
