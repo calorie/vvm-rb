@@ -26,7 +26,7 @@ test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
     installer(version, conf)
   end
 
-  desc 'rebuild [TAG] [options]', 'Rebuild a specific version of Vim, then install it'
+  desc 'rebuild [TAG] [options]', 'Rebuild a specific version of Vim'
   def rebuild(version, *conf)
     rebuilder(version, conf)
   end

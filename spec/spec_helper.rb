@@ -17,7 +17,7 @@ require 'tmpdir'
 require 'vvm-rb'
 include VvmRb
 
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
   config.before :suite do
@@ -46,4 +46,8 @@ RSpec.configure do |config|
   config.after :all do
     FileUtils.rm_rf(@tmp)
   end
+end
+
+def get_cache_dir
+  File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '.vvm_cache'))
 end

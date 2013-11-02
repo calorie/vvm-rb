@@ -10,18 +10,19 @@ class Installer
   def fetch
     FileUtils.mkdir_p(get_repos_dir)
     repos_dir = get_vimorg_dir
-    unless File.exists?(repos_dir)
-      system("hg clone #{VIM_URI} #{repos_dir}")
-    end
+    system("hg clone #{VIM_URI} #{repos_dir}") unless File.exists?(repos_dir)
     Dir.chdir(repos_dir) { system('hg pull') }
   end
 
   def checkout
-    repos_dir = get_vimorg_dir
     src_dir = get_src_dir
     FileUtils.mkdir_p(src_dir)
     unless File.exists?(get_src_dir(@version))
-      system("cd #{repos_dir} && hg archive -t tar -r #{@version} -p #{@version} - | (cd #{src_dir} && tar xf -)")
+      archive = "hg archive -t tar -r #{@version} -p #{@version} -"
+      expand = "(cd #{src_dir} && tar xf -)"
+      Dir.chdir get_vimorg_dir do
+        system("#{archive} | #{expand}")
+      end
     end
   end
 

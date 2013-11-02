@@ -23,7 +23,7 @@ module Validator
 
     def check_tag
       unless $*[1] =~ /(^start$|^tip$|^v7-.+$|^system$)/
-        abort 'undefined vim version. please run [ vvm-rb list ] and check available versions.'
+        abort 'undefined vim version. please run [ vvm-rb list ].'
       end
       return true
     end

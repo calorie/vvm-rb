@@ -15,11 +15,7 @@ class Uninstaller
         abort "#{@version} can not be uninstalled; it is currently used."
       end
     end
-    if File.exists?(src_dir)
-      FileUtils.rm_rf(src_dir)
-    end
-    if File.exists?(vims_dir)
-      FileUtils.rm_rf(vims_dir)
-    end
+    FileUtils.rm_rf(src_dir) if File.exists?(src_dir)
+    FileUtils.rm_rf(vims_dir) if File.exists?(vims_dir)
   end
 end
