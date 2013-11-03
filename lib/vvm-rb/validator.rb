@@ -15,7 +15,7 @@ module Validator
     end
 
     def check_hg
-      unless Kernel.system('hg --version > /dev/null')
+      unless Kernel.system('which hg > /dev/null')
         abort 'mercurial is required to install.'
       end
       return true

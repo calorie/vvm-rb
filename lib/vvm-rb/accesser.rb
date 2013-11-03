@@ -1,4 +1,5 @@
 module Accesser
+
   module_function
 
   def get_dot_dir
