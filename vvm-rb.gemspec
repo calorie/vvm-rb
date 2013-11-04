@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Yuu Shigetani"]
-  s.date = "2013-11-02"
+  s.date = "2013-11-04"
   s.description = "vim version manager."
   s.email = "s2g4t1n2@gmail.com"
   s.executables = ["vvm-rb"]
@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
     "etc/login",
     "lib/vvm-rb.rb",
     "lib/vvm-rb/accesser.rb",
+    "lib/vvm-rb/base.rb",
     "lib/vvm-rb/cli.rb",
     "lib/vvm-rb/constants.rb",
     "lib/vvm-rb/installer.rb",
@@ -45,7 +46,6 @@ Gem::Specification.new do |s|
     "spec/uninstaller_spec.rb",
     "spec/validator_spec.rb",
     "spec/version_spec.rb",
-    "spec/vvm-rb_spec.rb",
     "vvm-rb.gemspec"
   ]
   s.homepage = "http://github.com/calorie/vvm-rb"

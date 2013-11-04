@@ -2,7 +2,7 @@ require 'thor'
 
 class Cli < Thor
   include Thor::Actions
-  include Validator
+  include VvmRb::Base
 
   desc 'install [TAG] [options]', 'Install a specific version of Vim'
   def install(version, *conf)

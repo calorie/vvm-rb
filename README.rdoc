@@ -26,15 +26,19 @@ please add the following line into your ~/.bash_login etc:
 
   test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
 
-or
+you can set own root.
 
   export VVMROOT=/your/vvm-rb/root/path
   test -f $VVMROOT/etc/login && source $VVMROOT/etc/login
 
-commands
+you can set your default options of configure.
+
+  export VVMOPT="--enable-rubyinterp --enable-pythoninterp"
+
+== Commands
 
   $ vvm-rb help
-  $ vvm-rb install v7-4
+  $ vvm-rb install v7-4 --enable-rubyinterp
   $ vvm-rb install v7-4-035
   $ vvm-rb reinstall v7-4
   $ vvm-rb rebuild v7-4 --enable-rubyinterp --enable-pythoninterp

@@ -1,5 +1,5 @@
 require 'spec_helper'
-include Validator
+include VvmRb::Base
 
 describe 'Validator' do
 

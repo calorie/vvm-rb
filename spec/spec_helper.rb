@@ -41,6 +41,7 @@ RSpec.configure do |config|
     FileUtils.cp_r(get_cache_dir, @tmp)
     @vvm_tmp = File.expand_path(File.join(@tmp, '.vvm_cache'))
     ENV['VVMROOT'] = @vvm_tmp
+    ENV['VVMOPT'] = nil
   end
 
   config.after :all do

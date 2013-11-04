@@ -4,7 +4,7 @@ class Installer
 
   def initialize(version, conf = [])
     @version = version
-    @conf    = conf
+    @conf = conf.empty? && ENV['VVMOPT'] ? ENV['VVMOPT'].split(' ') : conf
   end
 
   def fetch

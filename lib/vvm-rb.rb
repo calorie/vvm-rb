@@ -1,3 +1,4 @@
+require 'vvm-rb/base'
 require 'vvm-rb/constants'
 require 'vvm-rb/installer'
 require 'vvm-rb/uninstaller'
@@ -8,4 +9,5 @@ require 'vvm-rb/version'
 
 module VvmRb
   include Accesser
+  include Validator
 end

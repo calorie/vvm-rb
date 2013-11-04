@@ -7,6 +7,7 @@ describe 'Installer' do
       FileUtils.rm_rf(get_vims_dir)
       FileUtils.rm_rf(get_repos_dir)
       FileUtils.rm_rf(get_etc_dir)
+      ENV['VVMOPT'] = '--enable-rubyinterp'
       @version = 'v7-4'
       @installer = Installer.new(@version)
     end
@@ -53,6 +54,14 @@ describe 'Installer' do
 
       it 'exists login file' do
         expect(File.exists?(get_login_file)).to be_true
+      end
+    end
+
+    context 'vvmopt' do
+      let(:vim) { "#{get_vims_dir(@version)}/bin/vim" }
+
+      it 'enable rubyinterp' do
+        expect(`#{vim} --version |grep ruby`).to match(/\+ruby/)
       end
     end
   end
