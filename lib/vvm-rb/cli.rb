@@ -38,7 +38,7 @@ test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
 
   desc 'list', 'Look available vim versions'
   def list
-    Installer.new('dummy').fetch
+    Installer.fetch
     puts Version.list
   end
 
@@ -58,12 +58,12 @@ test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
   private
 
   def installer(version, conf)
+    Installer.fetch
     i = Installer.new(version, conf)
-    i.fetch
     i.checkout
     i.configure
     i.make_install
-    i.cp_etc
+    Installer.cp_etc
   end
 
   def rebuilder(version, conf)

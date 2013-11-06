@@ -24,22 +24,21 @@ RSpec.configure do |config|
     unless File.exists?(cache_dir)
       ENV['VVMROOT'] = cache_dir
       FileUtils.mkdir_p(cache_dir)
+      Installer.fetch
       %w{ v7-3-969 v7-4 }.each do |v|
         i = Installer.new(v)
-        i.fetch
         i.checkout
         i.configure
         i.make_install
-        i.cp_etc
       end
+      Installer.cp_etc
     end
   end
 
   config.before :all do
     @tmp = Dir.mktmpdir
     FileUtils.cp_r(get_cache_dir, @tmp)
-    @vvm_tmp = File.expand_path(File.join(@tmp, '.vvm_cache'))
-    ENV['VVMROOT'] = @vvm_tmp
+    ENV['VVMROOT'] = File.expand_path(File.join(@tmp, '.vvm_cache'))
     ENV['VVMOPT'] = nil
   end
 

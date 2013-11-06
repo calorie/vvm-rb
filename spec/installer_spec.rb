@@ -14,7 +14,7 @@ describe 'Installer' do
 
     context 'fetch' do
       before :all do
-        @installer.fetch
+        Installer.fetch
       end
 
       it 'exists vimorg dir' do
@@ -45,7 +45,7 @@ describe 'Installer' do
 
     context 'cp_etc' do
       before :all do
-        @installer.cp_etc
+        Installer.cp_etc
       end
 
       it 'exists etc dir' do

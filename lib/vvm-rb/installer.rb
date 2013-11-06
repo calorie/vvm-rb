@@ -7,7 +7,7 @@ class Installer
     @conf = conf.empty? && ENV['VVMOPT'] ? ENV['VVMOPT'].split(' ') : conf
   end
 
-  def fetch
+  def self.fetch
     FileUtils.mkdir_p(get_repos_dir)
     repos_dir = get_vimorg_dir
     system("hg clone #{VIM_URI} #{repos_dir}") unless File.exists?(repos_dir)
@@ -49,7 +49,7 @@ class Installer
     end
   end
 
-  def cp_etc
+  def self.cp_etc
     unless File.exists?(get_login_file)
       etc_dir = get_etc_dir
       FileUtils.mkdir_p(etc_dir)
