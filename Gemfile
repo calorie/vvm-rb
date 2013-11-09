@@ -5,6 +5,7 @@ gem 'thor'
 
 group :development do
   gem 'rspec'
+  gem 'rubocop'
   gem 'rdoc'
   gem 'bundler'
   gem 'jeweler'
