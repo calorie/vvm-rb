@@ -1,13 +1,15 @@
 #!/bin/bash
 
+__vvm_rb_path_remove ()
+{
+  export PATH=`echo -n $PATH | awk -v RS=: -v ORS=: '$0 != "'$1'"' | sed 's/:$//'`;
+}
 __vvm_rb_configure_path()
 {
   local vvm_rb_bin_path="$HOME/.vvm-rb/vims/current/bin"
-
-  echo "$PATH" | grep -Fqv "$vvm_rb_bin_path" &&
-    PATH="$vvm_rb_bin_path:$PATH"
+  __vvm_rb_path_remove $vvm_rb_bin_path
+  export PATH="$vvm_rb_bin_path:$PATH"
 }
-
 
 __vvm_rb_configure_path
 
