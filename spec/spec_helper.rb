@@ -48,5 +48,5 @@ RSpec.configure do |config|
 end
 
 def get_cache_dir
-  File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '.vvm_cache'))
+  File.expand_path(File.join(File.dirname(__FILE__), '..', '.vvm_cache'))
 end
