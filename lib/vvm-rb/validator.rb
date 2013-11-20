@@ -1,5 +1,4 @@
 module Validator
-
   module_function
 
   def check_hg

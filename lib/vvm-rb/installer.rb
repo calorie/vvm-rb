@@ -1,7 +1,6 @@
 require 'fileutils'
 
 class Installer
-
   def initialize(version, conf = [])
     @version = version
     @conf = conf.empty? && ENV['VVMOPT'] ? ENV['VVMOPT'].split(' ') : conf
