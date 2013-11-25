@@ -18,6 +18,8 @@ include VvmRb
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
+# [todo] - test is too slow
+
 RSpec.configure do |config|
   config.before :suite do
     cache_dir = get_cache_dir
