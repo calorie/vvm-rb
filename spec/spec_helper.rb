@@ -6,6 +6,7 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 ]
 SimpleCov.start do
   add_filter '/spec/'
+  add_filter '/vendor/'
 end
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
@@ -27,7 +28,7 @@ RSpec.configure do |config|
       ENV['VVMROOT'] = cache_dir
       FileUtils.mkdir_p(cache_dir)
       Installer.fetch
-      %w{ v7-3-969 v7-4 }.each do |v|
+      %w{ v7-4-083 v7-4-103 }.each do |v|
         i = Installer.new(v)
         i.checkout
         i.configure

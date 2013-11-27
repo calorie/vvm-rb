@@ -4,7 +4,7 @@ describe 'Uninstaller' do
   describe 'uninstall' do
     context 'vim version is currently used' do
       before :all do
-        version = 'v7-4'
+        version = 'v7-4-103'
         Switcher.new(version).use
         @uninstaller = Uninstaller.new(version)
       end
@@ -16,7 +16,7 @@ describe 'Uninstaller' do
 
     context 'can uninstall version' do
       before :all do
-        @version = 'v7-3-969'
+        @version = 'v7-4-083'
         Uninstaller.new(@version).uninstall
       end
 

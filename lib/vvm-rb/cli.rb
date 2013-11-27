@@ -39,12 +39,12 @@ test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
   desc 'list', 'Look available vim versions'
   def list
     Installer.fetch
-    puts Version.list
+    puts Version.list.join("\n")
   end
 
   desc 'versions', 'Look installed vim versions.'
   def versions
-    puts Version.versions
+    puts Version.versions.join("\n")
   end
 
   desc 'uninstall [TAG]', 'Uninstall a specific version of Vim.'
@@ -54,11 +54,19 @@ test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
 
   before_method(:install, :reinstall, :rebuild, :list) { check_hg }
   before_method(:install, :reinstall, :rebuild, :use, :uninstall) { check_tag }
+  before_method(:install) { new_version?(Version.versions) }
+  before_method(:reinstall, :rebuild, :use, :uninstall) do
+    version_exist?(Version.versions)
+  end
 
   private
 
   def installer(version, conf)
     Installer.fetch
+    if version == 'latest'
+      version = Version.list.select { |v| v =~ /^v7-.+$/ }.last
+      new_version?(Version.versions, version)
+    end
     i = Installer.new(version, conf)
     i.checkout
     i.configure
