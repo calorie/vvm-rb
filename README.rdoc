@@ -18,7 +18,6 @@ or
   $ git clone https://github.com/calorie/vvm-rb.git
   $ cd vvm-rb
   $ bundle install --path vendor/bundle
-  $ bundle exec rake build
   $ bundle exec rake install
 
 == Usage
@@ -40,6 +39,7 @@ you can set your default options of configure.
   $ vvm-rb help
   $ vvm-rb install v7-4 --enable-rubyinterp
   $ vvm-rb install v7-4-035
+  $ vvm-rb install latest
   $ vvm-rb reinstall v7-4
   $ vvm-rb rebuild v7-4 --enable-rubyinterp --enable-pythoninterp
   $ vvm-rb use v7-4
