@@ -47,6 +47,10 @@ you can set your default options of configure.
   $ vvm-rb versions
   $ vvm-rb uninstall v7-4-035
 
+after use command, you have to reload shell.
+
+  $ exec $SHELL
+
 == Uninstall
 
   $ gem uninstall vvm-rb
