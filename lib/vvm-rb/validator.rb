@@ -8,30 +8,30 @@ module Validator
     return true
   end
 
-  def check_tag(tag = $*[1])
-    unless tag =~ /(^start$|^tip$|^v7-.+$|^system$|^latest$)/
+  def check_tag
+    unless get_version
       abort 'undefined vim version. please run [ vvm-rb list ].'
     end
     return true
   end
 
-  def new_version?(versions, version = $*[1])
-    if version_include?(versions, version)
-      abort "#{version} is already installed."
-    end
+  def new_version?(version = get_version)
+    abort "#{version} is already installed." if version_include?(version)
     return true
   end
 
-  def version_exist?(versions, version = $*[1])
-    unless version_include?(versions, version)
-      abort "#{version} is not installed."
-    end
+  def version_exist?(version = get_version)
+    abort "#{version} is not installed." unless version_include?(version)
     return true
   end
 
   private
 
-  def version_include?(versions, version)
-    return versions.include?(version)
+  def get_version
+    return $*.find { |v| v =~ /(^start$|^tip$|^v7-.+$|^system$|^latest$)/ }
+  end
+
+  def version_include?(version)
+    return Version.versions.include?(version)
   end
 end

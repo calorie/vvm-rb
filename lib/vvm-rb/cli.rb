@@ -5,8 +5,10 @@ class Cli < Thor
   include VvmRb::Base
 
   desc 'install [TAG] [options]', 'Install a specific version of Vim'
+  method_option :use, :type => :boolean, :aliases => '-u'
   def install(version, *conf)
     installer(version, conf)
+    use(version) if options[:use]
 
     print "\e[32m"
     puts <<-EOS
@@ -54,10 +56,8 @@ test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
 
   before_method(:install, :reinstall, :rebuild, :list) { check_hg }
   before_method(:install, :reinstall, :rebuild, :use, :uninstall) { check_tag }
-  before_method(:install) { new_version?(Version.versions) }
-  before_method(:reinstall, :rebuild, :use, :uninstall) do
-    version_exist?(Version.versions)
-  end
+  before_method(:install) { new_version? }
+  before_method(:reinstall, :rebuild, :use, :uninstall) { version_exist? }
 
   private
 
@@ -65,7 +65,7 @@ test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
     Installer.fetch
     if version == 'latest'
       version = Version.list.select { |v| v =~ /^v7-.+$/ }.last
-      new_version?(Version.versions, version)
+      new_version?(version)
     end
     i = Installer.new(version, conf)
     i.checkout

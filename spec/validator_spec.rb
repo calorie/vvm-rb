@@ -51,7 +51,7 @@ describe 'Validator' do
 
   describe 'new_version?' do
     def dummy_method ; end
-    before_method(:dummy_method) { new_version?(Version.versions) }
+    before_method(:dummy_method) { new_version? }
 
     context 'new version' do
       before { $*[1] = 'v7-4-050' }
@@ -72,7 +72,7 @@ describe 'Validator' do
 
   describe 'version_exist?' do
     def dummy_method ; end
-    before_method(:dummy_method) { version_exist?(Version.versions) }
+    before_method(:dummy_method) { version_exist? }
 
     context 'version is installed' do
       before { $*[1] = 'v7-4-103' }
