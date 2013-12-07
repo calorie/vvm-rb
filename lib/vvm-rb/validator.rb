@@ -32,6 +32,6 @@ module Validator
   end
 
   def version_include?(version)
-    return Version.versions.include?(version)
+    return Version.versions.include?(version) || version == 'system'
   end
 end
