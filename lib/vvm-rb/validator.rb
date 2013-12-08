@@ -9,7 +9,7 @@ module Validator
   end
 
   def check_tag
-    unless get_version
+    if get_version.nil?
       abort 'undefined vim version. please run [ vvm-rb list ].'
     end
     return true
@@ -28,10 +28,18 @@ module Validator
   private
 
   def get_version
-    return $*.find { |v| v =~ /(^start$|^tip$|^v7-.+$|^system$|^latest$)/ }
+    version = $*.find { |v| v =~ /(^start$|^tip$|^v7-.+$|^system$|^latest$)/ }
+    if version == 'latest'
+      version = Version.list.select { |v| v =~ /^v7-.+$/ }.last
+    end
+    return version
   end
 
   def version_include?(version)
-    return Version.versions.include?(version) || version == 'system'
+    return Version.versions.include?(version) || use_system?(version)
+  end
+
+  def use_system?(version)
+    return version == 'system' && $*.include?('use')
   end
 end
