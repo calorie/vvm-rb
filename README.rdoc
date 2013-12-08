@@ -17,7 +17,7 @@ or
 
   $ git clone https://github.com/calorie/vvm-rb.git
   $ cd vvm-rb
-  $ bundle install --path vendor/bundle
+  $ bundle install
   $ bundle exec rake install
 
 == Usage
