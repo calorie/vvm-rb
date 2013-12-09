@@ -32,16 +32,34 @@ describe 'Validator' do
     def dummy_method ; end
     before_method(:dummy_method) { check_tag }
 
+    before :all do
+      $* << ['vvm-rb', 'install']
+    end
+
     context 'available tag' do
-      before { $*[1] = 'v7-4-050' }
+      before do
+        $*[2] = 'v7-4-050'
+      end
 
       it 'success to run the method' do
         expect(dummy_method).to be_nil
       end
     end
 
-    context 'hg is not installed' do
-      before { $*[1] = '--enable-rubyinterp' }
+    context 'latest' do
+      before do
+        $*[2] = 'latest'
+      end
+
+      it 'success to run the method' do
+        expect(dummy_method).to be_nil
+      end
+    end
+
+    context 'tag is not available' do
+      before do
+        $*[2] = '--use'
+      end
 
       it 'cannot run the method' do
         expect(proc { dummy_method }).to raise_error
@@ -51,10 +69,9 @@ describe 'Validator' do
 
   describe 'new_version?' do
     def dummy_method ; end
-    before_method(:dummy_method) { new_version? }
 
     context 'new version' do
-      before { $*[1] = 'v7-4-050' }
+      before_method(:dummy_method) { new_version?('v7-4-050') }
 
       it 'success to run the method' do
         expect(dummy_method).to be_nil
@@ -62,7 +79,7 @@ describe 'Validator' do
     end
 
     context 'version is installed' do
-      before { $*[1] = 'v7-4-103' }
+      before_method(:dummy_method) { new_version?('v7-4-103') }
 
       it 'cannot run the method' do
         expect(proc { dummy_method }).to raise_error
@@ -72,10 +89,9 @@ describe 'Validator' do
 
   describe 'version_exist?' do
     def dummy_method ; end
-    before_method(:dummy_method) { version_exist? }
 
     context 'version is installed' do
-      before { $*[1] = 'v7-4-103' }
+      before_method(:dummy_method) { version_exist?('v7-4-103') }
 
       it 'success to run the method' do
         expect(dummy_method).to be_nil
@@ -83,7 +99,7 @@ describe 'Validator' do
     end
 
     context 'version is not installed' do
-      before { $*[1] = 'v7-4-050' }
+      before_method(:dummy_method) { version_exist?('v7-4-050') }
 
       it 'cannot run the method' do
         expect(proc { dummy_method }).to raise_error
