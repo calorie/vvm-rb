@@ -10,7 +10,10 @@ class Installer
     FileUtils.mkdir_p(get_repos_dir)
     repos_dir = get_vimorg_dir
     system("hg clone #{VIM_URI} #{repos_dir}") unless File.exists?(repos_dir)
-    Dir.chdir(repos_dir) { system('hg pull') }
+  end
+
+  def self.pull
+    Dir.chdir(get_vimorg_dir) { system('hg pull') }
   end
 
   def checkout

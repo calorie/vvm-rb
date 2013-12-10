@@ -33,7 +33,7 @@ describe 'Validator' do
     before_method(:dummy_method) { check_tag }
 
     before :all do
-      $* << ['vvm-rb', 'install']
+      $* << %w(vvm-rb install)
     end
 
     context 'available tag' do

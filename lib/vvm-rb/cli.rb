@@ -7,9 +7,10 @@ class Cli < Thor
   desc 'install [VERSION] [CONFIGURE_OPTS]', 'Install a specific version of Vim'
   method_option :use, type: :boolean, aliases: '-u', banner: 'Use installed vim'
   def install(version, *conf)
-    version = format_version(version)
+    version = Version.format(version)
+    new_version?(version)
 
-    Installer.fetch
+    Installer.pull
     i = Installer.new(version, conf)
     i.checkout
     i.configure
@@ -42,7 +43,7 @@ class Cli < Thor
 
   desc 'list', 'Look available vim versions'
   def list
-    Installer.fetch
+    Installer.pull
     puts Version.list.join("\n")
   end
 
@@ -56,20 +57,15 @@ class Cli < Thor
     Uninstaller.new(version).uninstall
   end
 
-  before_method(:install, :reinstall, :rebuild, :list) { check_hg }
-  before_method(:install, :reinstall, :rebuild, :use, :uninstall) { check_tag }
   before_method(:install) { new_version? }
   before_method(:reinstall, :rebuild, :use, :uninstall) { version_exist? }
+  before_method(:install, :reinstall, :rebuild, :use, :uninstall) { check_tag }
+  before_method(:install, :reinstall, :rebuild, :list) { check_hg }
+  before_method(*instance_methods(false)) do
+    Installer.fetch unless File.exists?(get_vimorg_dir)
+  end
 
   private
-
-  def format_version(version)
-    if version == 'latest'
-      version = Version.list.select { |v| v =~ /^v7-.+$/ }.last
-      new_version?(version)
-    end
-    return version
-  end
 
   def message
     print "\e[32m"

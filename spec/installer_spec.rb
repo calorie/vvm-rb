@@ -22,6 +22,16 @@ describe 'Installer' do
       end
     end
 
+    context 'pull' do
+      before :all do
+        Installer.pull
+      end
+
+      it 'exists vimorg dir' do
+        expect($?.success?).to be_true
+      end
+    end
+
     context 'checkout' do
       before :all do
         @installer.checkout

@@ -1,8 +1,6 @@
 class Version
   def self.list
-    vimorg_dir = get_vimorg_dir
-    return [] unless File.exists?(vimorg_dir)
-    Dir.chdir(vimorg_dir) do
+    Dir.chdir(get_vimorg_dir) do
       list = `hg tags`.split.reverse
       return list.values_at(* list.each_index.select { |i| i.odd? })
     end
@@ -16,5 +14,23 @@ class Version
       output << File.basename(d)
     end
     return output
+  end
+
+  def self.latest
+    return list.select { |v| v =~ /^v7-.+$/ }.last
+  end
+
+  def self.convert(version)
+    return "v#{version.gsub(/\./, '-')}"
+  end
+
+  def self.format(version)
+    case version
+    when /^latest$/
+      version = latest
+    when /^(\d\.\d\.\d+)$/
+      version = convert(version)
+    end
+    return version
   end
 end

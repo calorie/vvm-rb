@@ -28,11 +28,9 @@ module Validator
   private
 
   def get_version
-    version = $*.find { |v| v =~ /(^start$|^tip$|^v7-.+$|^system$|^latest$)/ }
-    if version == 'latest'
-      version = Version.list.select { |v| v =~ /^v7-.+$/ }.last
-    end
-    return version
+    regex = /(^start$|^tip$|^v7-.+$|^(\d\.\d\.\d+)$|^system$|^latest$)/
+    version = $*.find { |v| v =~ regex }
+    return Version.format(version)
   end
 
   def version_include?(version)
