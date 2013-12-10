@@ -18,7 +18,7 @@ or
   $ git clone https://github.com/calorie/vvm-rb.git
   $ cd vvm-rb
   $ bundle install
-  $ bundle exec rake install
+  $ rake install
 
 == Usage
 please add the following line into your ~/.bash_login etc:
