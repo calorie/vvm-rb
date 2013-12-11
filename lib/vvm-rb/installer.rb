@@ -1,9 +1,10 @@
 require 'fileutils'
 
 class Installer
-  def initialize(version, conf = [])
+  def initialize(version, conf)
+    vvmopt = ENV['VVMOPT']
     @version = version
-    @conf = conf.empty? && ENV['VVMOPT'] ? ENV['VVMOPT'].split(' ') : conf
+    @conf = conf.flatten.empty? && vvmopt ? vvmopt.split(' ') : conf
   end
 
   def self.fetch

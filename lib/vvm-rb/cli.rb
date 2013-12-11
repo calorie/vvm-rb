@@ -7,11 +7,8 @@ class Cli < Thor
   desc 'install [VERSION] [CONFIGURE_OPTS]', 'Install a specific version of Vim'
   method_option :use, type: :boolean, aliases: '-u', banner: 'Use installed vim'
   def install(version, *conf)
-    version = Version.format(version)
-    new_version?(version)
-
     Installer.pull
-    i = Installer.new(version, conf)
+    i = Installer.new(Version.format(version), conf)
     i.checkout
     i.configure
     i.make_install
@@ -30,7 +27,7 @@ class Cli < Thor
 
   desc 'rebuild [VERSION] [CONFIGURE_OPTS]', 'Rebuild a specific version of Vim'
   def rebuild(version, *conf)
-    r = Installer.new(version, conf)
+    r = Installer.new(Version.format(version), conf)
     r.make_clean
     r.configure
     r.make_install
@@ -38,7 +35,7 @@ class Cli < Thor
 
   desc 'use [VERSION]', 'Use a specific version of Vim as the default one.'
   def use(version)
-    Switcher.new(version).use
+    Switcher.new(Version.format(version)).use
   end
 
   desc 'list', 'Look available vim versions'
@@ -54,7 +51,7 @@ class Cli < Thor
 
   desc 'uninstall [VERSION]', 'Uninstall a specific version of Vim.'
   def uninstall(version)
-    Uninstaller.new(version).uninstall
+    Uninstaller.new(Version.format(version)).uninstall
   end
 
   before_method(:install) { new_version? }
