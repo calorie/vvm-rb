@@ -37,12 +37,12 @@ class Cli < Thor
     Switcher.new(Version.format(version)).use
   end
 
-  desc 'list', 'Look available vim versions'
+  desc 'list', 'Look available versions of Vim.'
   def list
     puts Version.list.join("\n")
   end
 
-  desc 'versions', 'Look installed vim versions.'
+  desc 'versions', 'Look installed versions of Vim.'
   def versions
     puts Version.versions.join("\n")
   end
