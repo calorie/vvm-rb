@@ -28,7 +28,7 @@ class Version
     case version
     when /^latest$/
       version = latest
-    when /^(\d\.\d\.\d+)$/
+    when /^(\d\.\d(a|b){0,1}(\.\d+){0,1})$/
       version = convert(version)
     end
     return version

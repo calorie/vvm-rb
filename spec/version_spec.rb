@@ -12,7 +12,7 @@ describe 'Version' do
   describe 'versions' do
     context 'vims dirctory exists' do
       it 'echo installed vim versions' do
-        expect(Version.versions.join("\n")).to eq("v7-4-083\nv7-4-103")
+        expect(Version.versions.join("\n")).to eq "v7-4-083\nv7-4-103"
       end
     end
     context 'vims dirctory is not found' do
@@ -55,7 +55,7 @@ describe 'Version' do
 
     context 'dicimal version' do
       it 'return formated vim version' do
-        expect(Version.format('7.4.112')).to eq 'v7-4-112'
+        expect(Version.format('7.4a.001')).to eq 'v7-4a-001'
       end
     end
 

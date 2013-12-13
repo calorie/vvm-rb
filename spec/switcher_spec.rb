@@ -25,7 +25,7 @@ describe 'Switcher' do
       end
 
       it 'switch current' do
-        expect(File.readlink(@current)).to eq(@vims_dir)
+        expect(File.readlink(@current)).to eq @vims_dir
       end
     end
 
