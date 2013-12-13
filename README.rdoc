@@ -34,18 +34,17 @@ you can set your default options of configure.
 
   export VVMOPT="--enable-rubyinterp --enable-pythoninterp"
 
-== Commands
+== Commands Examples
 
   $ vvm-rb help
-  $ vvm-rb install v7-4 --enable-rubyinterp
-  $ vvm-rb install v7-4-035
-  $ vvm-rb install latest
-  $ vvm-rb reinstall v7-4
-  $ vvm-rb rebuild v7-4 --enable-rubyinterp --enable-pythoninterp
-  $ vvm-rb use v7-4
+  $ vvm-rb install 7.4.103 --enable-rubyinterp
+  $ vvm-rb install --use latest
+  $ vvm-rb reinstall 7.4.103
+  $ vvm-rb rebuild 7.4.103 --enable-rubyinterp --enable-pythoninterp
+  $ vvm-rb use 7.4.103
   $ vvm-rb list
   $ vvm-rb versions
-  $ vvm-rb uninstall v7-4-035
+  $ vvm-rb uninstall 7.4.103
 
 after use command, you have to reload shell.
 
