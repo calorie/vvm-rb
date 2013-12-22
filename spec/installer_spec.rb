@@ -54,16 +54,29 @@ describe 'Installer' do
     end
 
     context 'cp_etc' do
-      before :all do
-        Installer.cp_etc
-      end
+      context 'login file not exist' do
+        before :all do
+          Installer.cp_etc
+        end
 
-      it 'exists etc dir' do
-        expect(File.exists?(get_etc_dir)).to be_true
-      end
+        it 'exists etc dir' do
+          expect(File.exists?(get_etc_dir)).to be_true
+        end
 
-      it 'exists login file' do
-        expect(File.exists?(get_login_file)).to be_true
+        it 'exists login file' do
+          expect(File.exists?(get_login_file)).to be_true
+        end
+      end
+      context 'login file exists and it is not latest' do
+        before :all do
+          FileUtils.stub(:compare_file).and_return(false)
+        end
+
+        it 'exists login file' do
+          l = File.expand_path(File.dirname(__FILE__) + '/../etc/login')
+          expect(FileUtils).to receive(:cp).with(l, get_etc_dir)
+          Installer.cp_etc
+        end
       end
     end
 

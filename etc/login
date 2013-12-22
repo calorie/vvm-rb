@@ -6,7 +6,9 @@ __vvm_rb_path_remove ()
 }
 __vvm_rb_configure_path()
 {
-  local vvm_rb_bin_path="$HOME/.vvm-rb/vims/current/bin"
+  local vvm_rb_root_path="$HOME/.vvm-rb"
+  [ -z $VVMROOT ] || vvm_rb_root_path=$VVMROOT
+  local vvm_rb_bin_path="$vvm_rb_root_path/vims/current/bin"
   __vvm_rb_path_remove $vvm_rb_bin_path
   export PATH="$vvm_rb_bin_path:$PATH"
 }

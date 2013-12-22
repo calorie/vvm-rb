@@ -53,11 +53,14 @@ class Installer
   end
 
   def self.cp_etc
-    unless File.exists?(get_login_file)
+    current_login = get_login_file
+    login = File.expand_path(File.dirname(__FILE__) + '/../../etc/login')
+    if !File.exists?(current_login)
       etc_dir = get_etc_dir
       FileUtils.mkdir_p(etc_dir)
-      login = File.expand_path(File.dirname(__FILE__) + '/../../etc/login')
       FileUtils.cp(login, etc_dir)
+    elsif !FileUtils.compare_file(login, current_login)
+      FileUtils.cp(login, get_etc_dir)
     end
   end
 end
