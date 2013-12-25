@@ -29,7 +29,7 @@ RSpec.configure do |config|
       FileUtils.mkdir_p(cache_dir)
       Installer.fetch
       %w{ v7-4-083 v7-4-103 }.each do |v|
-        i = Installer.new(v, [])
+        i = Installer.new(v, [], true)
         i.checkout
         i.configure
         i.make_install

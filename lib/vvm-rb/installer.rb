@@ -1,8 +1,9 @@
 require 'fileutils'
 
 class Installer
-  def initialize(version, conf)
+  def initialize(version, conf, silent = false)
     vvmopt = ENV['VVMOPT']
+    @silent = silent ? '> /dev/null' : ''
     @version = version
     @conf = conf.flatten.empty? && vvmopt ? vvmopt.split(' ') : conf
   end
@@ -10,11 +11,11 @@ class Installer
   def self.fetch
     FileUtils.mkdir_p(get_repos_dir)
     repos_dir = get_vimorg_dir
-    system("hg clone #{VIM_URI} #{repos_dir}") unless File.exists?(repos_dir)
+    system("hg -q clone #{VIM_URI} #{repos_dir}") unless File.exists?(repos_dir)
   end
 
   def self.pull
-    Dir.chdir(get_vimorg_dir) { system('hg pull') }
+    Dir.chdir(get_vimorg_dir) { system('hg -q pull') }
   end
 
   def checkout
@@ -24,7 +25,7 @@ class Installer
       archive = "hg archive -t tar -r #{@version} -p #{@version} -"
       expand = "(cd #{src_dir} && tar xf -)"
       Dir.chdir get_vimorg_dir do
-        system("#{archive} | #{expand}")
+        system("#{archive} | #{expand} #{@silent}")
       end
     end
   end
@@ -34,21 +35,21 @@ class Installer
     src_dir = get_src_dir(@version)
     default = "--prefix=#{vims_dir}"
     Dir.chdir src_dir do
-      system("./configure #{default} #{@conf.join(' ')}")
+      system("./configure #{default} #{@conf.join(' ')} #{@silent}")
     end
   end
 
   def make_clean
     src_dir = get_src_dir(@version)
     Dir.chdir src_dir do
-      system('make clean')
+      system("make clean #{@silent}")
     end
   end
 
   def make_install
     src_dir = get_src_dir(@version)
     Dir.chdir src_dir do
-      system('make all install')
+      system("make all install #{@silent}")
     end
   end
 
