@@ -8,13 +8,11 @@ RescueModifier:
   Enabled: false
 RedundantReturn:
   Enabled: false
-AsciiComments:
-  Enabled: false
-AssignmentInCondition:
-  Enabled: false
 Documentation:
   Enabled: false
 RedundantBegin:
   Enabled: false
 SpecialGlobalVars:
+  Enabled: false
+AccessorMethodName:
   Enabled: false

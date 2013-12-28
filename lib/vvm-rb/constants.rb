@@ -1,1 +1,1 @@
-VIM_URI   = 'https://vim.googlecode.com/hg/'
+VIM_URI = 'https://vim.googlecode.com/hg/'
