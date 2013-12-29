@@ -15,7 +15,7 @@ class Cli < Thor
 
     invoke :use, [version] if options[:use]
 
-    message
+    message if $!.success?
   end
 
   desc 'reinstall [VERSION] [CONFIGURE_OPTS]', 'Reinstall a specific version'
