@@ -13,15 +13,15 @@ class Cli < Thor
     i.make_install
     Installer.cp_etc
 
-    use(version) if options[:use]
+    invoke :use, [version] if options[:use]
 
     message
   end
 
   desc 'reinstall [VERSION] [CONFIGURE_OPTS]', 'Reinstall a specific version'
   def reinstall(version, *conf)
-    uninstall(version)
-    install(version, conf)
+    invoke :uninstall, [version]
+    invoke :install, [version, *conf]
   end
 
   desc 'rebuild [VERSION] [CONFIGURE_OPTS]', 'Rebuild a specific version of Vim'
