@@ -3,7 +3,7 @@ require 'fileutils'
 class Installer
   def initialize(version, conf, silent = false)
     vvmopt = ENV['VVMOPT']
-    @silent = silent ? '> /dev/null' : ''
+    @silent = silent ? '> /dev/null 2>&1' : ''
     @version = version
     @conf = conf.flatten.empty? && vvmopt ? vvmopt.split(' ') : conf
   end
