@@ -13,7 +13,7 @@ class Cli < Thor
     i.make_install
     Installer.cp_etc
 
-    invoke :use, [version] if options[:use]
+    invoke :use, [version], {} if options[:use]
 
     message if $?.success?
   end
