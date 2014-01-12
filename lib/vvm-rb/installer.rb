@@ -2,10 +2,10 @@ require 'fileutils'
 
 class Installer
   def initialize(version, conf, silent = false)
-    vvmopt = ENV['VVMOPT']
-    @silent = silent ? '> /dev/null 2>&1' : ''
+    vvmopt   = ENV['VVMOPT']
+    @silent  = silent ? '> /dev/null 2>&1' : ''
     @version = version
-    @conf = conf.flatten.empty? && vvmopt ? vvmopt.split(' ') : conf
+    @conf    = conf.flatten.empty? && vvmopt ? vvmopt.split(' ') : conf
   end
 
   def self.fetch
@@ -23,7 +23,7 @@ class Installer
     FileUtils.mkdir_p(src_dir)
     unless File.exists?(get_src_dir(@version))
       archive = "hg archive -t tar -r #{@version} -p #{@version} -"
-      expand = "(cd #{src_dir} && tar xf -)"
+      expand  = "(cd #{src_dir} && tar xf -)"
       Dir.chdir get_vimorg_dir do
         system("#{archive} | #{expand} #{@silent}")
       end
@@ -32,8 +32,8 @@ class Installer
 
   def configure
     vims_dir = get_vims_dir(@version)
-    src_dir = get_src_dir(@version)
-    default = "--prefix=#{vims_dir}"
+    src_dir  = get_src_dir(@version)
+    default  = "--prefix=#{vims_dir}"
     Dir.chdir src_dir do
       system("./configure #{default} #{@conf.join(' ')} #{@silent}")
     end

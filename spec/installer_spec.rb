@@ -8,8 +8,8 @@ describe 'Installer' do
       FileUtils.rm_rf(get_repos_dir)
       FileUtils.rm_rf(get_etc_dir)
       ENV['VVMOPT'] = '--enable-rubyinterp'
-      @version = 'v7-4-103'
-      @installer = Installer.new(@version, [], true)
+      @version      = 'v7-4-103'
+      @installer    = Installer.new(@version, [], true)
     end
 
     context 'fetch' do
@@ -91,7 +91,7 @@ describe 'Installer' do
 
   describe 'rebuild' do
     before :all do
-      @version = 'v7-4-103'
+      @version   = 'v7-4-103'
       @installer = Installer.new(@version, [], true)
     end
 

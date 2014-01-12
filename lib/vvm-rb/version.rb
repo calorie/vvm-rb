@@ -7,7 +7,7 @@ class Version
   end
 
   def self.versions
-    output = []
+    output   = []
     vims_dir = get_vims_dir
     return output unless File.exists?(vims_dir)
     Dir.glob(File.join(vims_dir, 'v*')).sort.each do |d|
