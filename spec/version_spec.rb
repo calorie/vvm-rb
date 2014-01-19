@@ -39,6 +39,22 @@ describe 'Version' do
     end
   end
 
+  describe 'current' do
+    context 'current version is system' do
+      before { Switcher.new('system').use }
+      it 'return current vim version' do
+        expect(Version.current).to eq 'system'
+      end
+    end
+
+    context 'current version is not system' do
+      before { Switcher.new('v7-4-083').use }
+      it 'return current vim version' do
+        expect(Version.current).to eq 'v7-4-083'
+      end
+    end
+  end
+
   describe 'convert' do
     it 'version to tag' do
       expect(Version.convert('7.4.112')).to eq 'v7-4-112'

@@ -20,6 +20,11 @@ class Version
     return list.select { |v| v =~ /^v7-.+$/ }.last
   end
 
+  def self.current
+    c = get_current_dir
+    return File.exists?(c) ? File.basename(File.readlink(c)) : 'system'
+  end
+
   def self.convert(version)
     return "v#{version.gsub(/\./, '-')}"
   end

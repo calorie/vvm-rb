@@ -20,10 +20,15 @@ class Cli < Thor
 
   desc 'update', 'Update to latest version of Vim'
   def update
-    current = Version.versions.last
-    run 'vvm-rb use system'
-    run 'vvm-rb install --use latest'
-    run "vvm-rb #{$?.success? ? 'uninstall' : 'use'} #{current}"
+    current = Version.current
+    if current == 'system'
+      run 'vvm-rb install --use latest'
+      run 'vvm-rb use system' unless $?.success?
+    else
+      run 'vvm-rb use system'
+      run 'vvm-rb install --use latest'
+      run "vvm-rb #{$?.success? ? 'uninstall' : 'use'} #{current}"
+    end
   end
 
   desc 'reinstall [VERSION] [CONFIGURE_OPTS]', 'Reinstall a specific version'
