@@ -27,7 +27,8 @@ class Cli < Thor
     else
       run 'vvm-rb use system'
       run 'vvm-rb install --use latest'
-      run "vvm-rb #{$?.success? ? 'uninstall' : 'use'} #{current}"
+      action = $?.success? ? 'uninstall' : 'use'
+      run "vvm-rb #{action} #{current}"
     end
   end
 
