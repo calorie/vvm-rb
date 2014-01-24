@@ -2,15 +2,9 @@ LineLength:
   Max: 80
 MethodLength:
   Max: 30
-HashSyntax:
-  Enabled: true
-RescueModifier:
-  Enabled: false
 RedundantReturn:
   Enabled: false
 Documentation:
-  Enabled: false
-RedundantBegin:
   Enabled: false
 SpecialGlobalVars:
   Enabled: false
