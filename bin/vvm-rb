@@ -10,5 +10,5 @@ rescue LoadError
 end
 
 include VvmRb
-Cli.source_root(File.dirname(__FILE__) + '/..')
+Cli.source_root(File.join(File.dirname(__FILE__), '..'))
 Cli.start
