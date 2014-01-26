@@ -2,6 +2,7 @@ require 'spec_helper'
 include VvmRb::Base
 
 describe 'Validator' do
+  NEW_VERSION = 'v7-4-050'
 
   describe 'check_hg' do
     def dummy_method ; end
@@ -38,7 +39,7 @@ describe 'Validator' do
 
     context 'available tag' do
       before do
-        $*[2] = 'v7-4-050'
+        $*[2] = NEW_VERSION
       end
 
       it 'success to run the method' do
@@ -71,7 +72,7 @@ describe 'Validator' do
     def dummy_method ; end
 
     context 'new version' do
-      before_method(:dummy_method) { new_version?('v7-4-050') }
+      before_method(:dummy_method) { new_version?(NEW_VERSION) }
 
       it 'success to run the method' do
         expect(dummy_method).to be_nil
@@ -79,7 +80,7 @@ describe 'Validator' do
     end
 
     context 'version is installed' do
-      before_method(:dummy_method) { new_version?('v7-4-103') }
+      before_method(:dummy_method) { new_version?(VERSION1) }
 
       it 'cannot run the method' do
         expect(proc { dummy_method }).to raise_error
@@ -91,7 +92,7 @@ describe 'Validator' do
     def dummy_method ; end
 
     context 'version is installed' do
-      before_method(:dummy_method) { version_exist?('v7-4-103') }
+      before_method(:dummy_method) { version_exist?(VERSION1) }
 
       it 'success to run the method' do
         expect(dummy_method).to be_nil
@@ -99,7 +100,7 @@ describe 'Validator' do
     end
 
     context 'version is not installed' do
-      before_method(:dummy_method) { version_exist?('v7-4-050') }
+      before_method(:dummy_method) { version_exist?(NEW_VERSION) }
 
       it 'cannot run the method' do
         expect(proc { dummy_method }).to raise_error

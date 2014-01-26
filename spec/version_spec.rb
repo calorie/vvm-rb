@@ -12,7 +12,7 @@ describe 'Version' do
   describe 'versions' do
     context 'vims dirctory exists' do
       it 'echo installed vim versions' do
-        expect(Version.versions.join("\n")).to eq "v7-4-083\nv7-4-103"
+        expect(Version.versions.join("\n")).to eq "#{VERSION1}\n#{VERSION2}"
       end
     end
     context 'vims dirctory is not found' do
@@ -48,9 +48,9 @@ describe 'Version' do
     end
 
     context 'current version is not system' do
-      before { Switcher.new('v7-4-083').use }
+      before { Switcher.new(VERSION1).use }
       it 'return current vim version' do
-        expect(Version.current).to eq 'v7-4-083'
+        expect(Version.current).to eq VERSION1
       end
     end
   end

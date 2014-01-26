@@ -14,7 +14,7 @@ describe 'Switcher' do
 
     context 'different version' do
       before :all do
-        version = 'v7-4-103'
+        version = VERSION1
         Switcher.new(version).use
         @vims_dir = get_vims_dir(version)
         @current  = get_current_dir

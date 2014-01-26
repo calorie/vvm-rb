@@ -20,6 +20,8 @@ include VvmRb
 support = File.join(File.dirname(__FILE__), 'support', '**', '*.rb')
 Dir[support].each { |f| require f }
 
+VERSION1, VERSION2 = 'v7-4-083', 'v7-4-103'
+
 # [todo] - test is too slow
 
 RSpec.configure do |config|
@@ -29,7 +31,7 @@ RSpec.configure do |config|
       ENV['VVMROOT'] = cache_dir
       FileUtils.mkdir_p(cache_dir)
       Installer.fetch
-      %w{ v7-4-083 v7-4-103 }.each do |v|
+      [VERSION1, VERSION2].each do |v|
         i = Installer.new(v, [], true)
         i.checkout
         i.configure
