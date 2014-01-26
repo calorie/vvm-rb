@@ -73,15 +73,16 @@ describe 'Installer' do
         end
 
         it 'exists login file' do
-          l = File.expand_path(File.dirname(__FILE__) + '/../etc/login')
-          expect(FileUtils).to receive(:cp).with(l, get_etc_dir)
+          path = File.join(File.dirname(__FILE__), '..', 'etc', 'login')
+          login = File.expand_path(path)
+          expect(FileUtils).to receive(:cp).with(login, get_etc_dir)
           Installer.cp_etc
         end
       end
     end
 
     context 'vvmopt' do
-      let(:vim) { "#{get_vims_dir(@version)}/bin/vim" }
+      let(:vim) { File.join(get_vims_dir(@version), 'bin', 'vim') }
 
       it 'enable rubyinterp' do
         expect(`#{vim} --version |grep ruby`).to match(/\+ruby/)
@@ -101,7 +102,8 @@ describe 'Installer' do
       end
 
       it 'not exists objects dir' do
-        expect(Dir["#{get_src_dir(@version)}/src/objects/*"].empty?).to be_true
+        path = File.join(get_src_dir(@version), 'src', 'objects', '*')
+        expect(Dir[path].empty?).to be_true
       end
     end
   end

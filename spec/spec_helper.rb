@@ -17,7 +17,8 @@ require 'tmpdir'
 require 'vvm-rb'
 include VvmRb
 
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
+support = File.join(File.dirname(__FILE__), 'support', '**', '*.rb')
+Dir[support].each { |f| require f }
 
 # [todo] - test is too slow
 
