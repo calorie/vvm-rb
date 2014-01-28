@@ -9,9 +9,7 @@ describe 'Validator' do
     before_method(:dummy_method) { check_hg }
 
     context 'hg is installed' do
-      before do
-        Kernel.stub(:system).and_return(true)
-      end
+      before { Kernel.stub(:system).and_return(true) }
 
       it 'success to run the method' do
         expect(dummy_method).to be_nil
@@ -19,9 +17,7 @@ describe 'Validator' do
     end
 
     context 'hg is not installed' do
-      before do
-        Kernel.stub(:system).and_return(false)
-      end
+      before { Kernel.stub(:system).and_return(false) }
 
       it 'cannot run the method' do
         expect(proc { dummy_method }).to raise_error
@@ -33,14 +29,10 @@ describe 'Validator' do
     def dummy_method ; end
     before_method(:dummy_method) { check_tag }
 
-    before :all do
-      $* << %w(vvm-rb install)
-    end
+    before(:all) { $* << %w(vvm-rb install) }
 
     context 'available tag' do
-      before do
-        $*[2] = NEW_VERSION
-      end
+      before { $*[2] = NEW_VERSION }
 
       it 'success to run the method' do
         expect(dummy_method).to be_nil
@@ -48,9 +40,7 @@ describe 'Validator' do
     end
 
     context 'latest' do
-      before do
-        $*[2] = 'latest'
-      end
+      before { $*[2] = 'latest' }
 
       it 'success to run the method' do
         expect(dummy_method).to be_nil
@@ -58,9 +48,7 @@ describe 'Validator' do
     end
 
     context 'tag is not available' do
-      before do
-        $*[2] = '--use'
-      end
+      before { $*[2] = '--use' }
 
       it 'cannot run the method' do
         expect(proc { dummy_method }).to raise_error
