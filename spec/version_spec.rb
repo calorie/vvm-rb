@@ -5,7 +5,7 @@ require 'tmpdir'
 describe 'Version' do
   describe 'list' do
     it 'echo available vim versions' do
-      expect(Version.list.join("\n")).to match(/start\n(v7-.+\n)+tip$/)
+      expect(Version.list.join("\n")).to match(/^start\n(v7-.+\n)+tip$/)
     end
   end
 
