@@ -55,7 +55,8 @@ class Installer
 
   def self.cp_etc
     current_login = get_login_file
-    login = File.expand_path(File.dirname(__FILE__) + '/../../etc/login')
+    path = File.join(File.dirname(__FILE__), '..', '..', 'etc', 'login')
+    login = File.expand_path(path)
     if !File.exists?(current_login)
       etc_dir = get_etc_dir
       FileUtils.mkdir_p(etc_dir)
