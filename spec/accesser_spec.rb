@@ -1,5 +1,4 @@
 require 'spec_helper'
-include VvmRb::Base
 
 describe 'Accesser' do
   it 'can access vvm-rb home directory' do
