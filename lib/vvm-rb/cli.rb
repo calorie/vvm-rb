@@ -66,15 +66,6 @@ class Cli < Thor
     Uninstaller.new(Version.format(version)).uninstall
   end
 
-  before_method(:install) { new_version? }
-  before_method(:reinstall, :rebuild, :use, :uninstall) { version_exist? }
-  before_method(:install, :reinstall, :rebuild, :use, :uninstall) { check_tag }
-  before_method(:install, :list) { Installer.pull }
-  before_method(:install, :reinstall, :rebuild, :list) { check_hg }
-  before_method(*instance_methods(false)) do
-    Installer.fetch unless File.exists?(get_vimorg_dir)
-  end
-
   private
 
   def message
@@ -89,4 +80,22 @@ test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
     EOS
     print "\e[0m"
   end
+
+  def self.init_vvm_rb
+    before_method(*instance_methods(false)) do
+      Installer.fetch unless File.exists?(get_vimorg_dir)
+    end
+  end
+
+  def self.validations
+    before_method(:install) { new_version? }
+    before_method(:reinstall, :rebuild, :use, :uninstall) { has_version? }
+    before_method(:install, :reinstall, :rebuild, :use, :uninstall) { version? }
+    before_method(:install, :list) { Installer.pull }
+    before_method(:install, :reinstall, :rebuild, :list) { has_hg? }
+  end
+
+  validations
+
+  init_vvm_rb
 end

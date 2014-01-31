@@ -19,3 +19,5 @@ SpecialGlobalVars:
   Enabled: false
 AccessorMethodName:
   Enabled: false
+PredicateName:
+  Enabled: false

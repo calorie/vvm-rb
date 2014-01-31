@@ -4,9 +4,9 @@ include VvmRb::Base
 describe 'Validator' do
   NEW_VERSION = 'v7-4-050'
 
-  describe 'check_hg' do
+  describe 'has_hg?' do
     def dummy_method ; end
-    before_method(:dummy_method) { check_hg }
+    before_method(:dummy_method) { has_hg? }
 
     context 'hg is installed' do
       before { Kernel.stub(:system).and_return(true) }
@@ -25,9 +25,9 @@ describe 'Validator' do
     end
   end
 
-  describe 'check_tag' do
+  describe 'version?' do
     def dummy_method ; end
-    before_method(:dummy_method) { check_tag }
+    before_method(:dummy_method) { version? }
 
     before(:all) { $* << %w(vvm-rb install) }
 
@@ -76,11 +76,11 @@ describe 'Validator' do
     end
   end
 
-  describe 'version_exist?' do
+  describe 'has_version?' do
     def dummy_method ; end
 
     context 'version is installed' do
-      before_method(:dummy_method) { version_exist?(VERSION1) }
+      before_method(:dummy_method) { has_version?(VERSION1) }
 
       it 'success to run the method' do
         expect(dummy_method).to be_nil
@@ -88,7 +88,7 @@ describe 'Validator' do
     end
 
     context 'version is not installed' do
-      before_method(:dummy_method) { version_exist?(NEW_VERSION) }
+      before_method(:dummy_method) { has_version?(NEW_VERSION) }
 
       it 'cannot run the method' do
         expect(proc { dummy_method }).to raise_error

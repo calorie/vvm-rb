@@ -1,14 +1,14 @@
 module Validator
   module_function
 
-  def check_hg
+  def has_hg?
     unless Kernel.system('which hg > /dev/null')
       abort 'mercurial is required to install.'
     end
     return true
   end
 
-  def check_tag
+  def version?
     if get_version.nil?
       abort 'undefined vim version. please run [ vvm-rb list ].'
     end
@@ -20,7 +20,7 @@ module Validator
     return true
   end
 
-  def version_exist?(version = get_version)
+  def has_version?(version = get_version)
     abort "#{version} is not installed." unless version_include?(version)
     return true
   end
