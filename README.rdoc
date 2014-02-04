@@ -29,12 +29,12 @@ please add the following line into your ~/.bash_login etc:
 
   test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
 
-you can set own root.
+you can set own root:
 
   export VVMROOT=/your/vvm-rb/root/path
   test -f $VVMROOT/etc/login && source $VVMROOT/etc/login
 
-you can set your default options of configure.
+you can set your default options of configure:
 
   export VVMOPT="--enable-rubyinterp --enable-pythoninterp"
 
@@ -51,7 +51,7 @@ you can set your default options of configure.
   $ vvm-rb uninstall 7.4.103
   $ vvm-rb update
 
-after use command, you have to reload shell.
+after use command, you have to reload shell:
 
   $ exec $SHELL
 
