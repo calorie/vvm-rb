@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Yuu Shigetani"]
-  s.date = "2014-01-19"
+  s.date = "2014-02-10"
   s.description = "vim version manager."
   s.email = "s2g4t1n2@gmail.com"
   s.executables = ["vvm-rb"]
@@ -42,6 +42,7 @@ Gem::Specification.new do |s|
     "lib/vvm-rb/uninstaller.rb",
     "lib/vvm-rb/validator.rb",
     "lib/vvm-rb/version.rb",
+    "spec/accesser_spec.rb",
     "spec/installer_spec.rb",
     "spec/spec_helper.rb",
     "spec/switcher_spec.rb",
@@ -52,14 +53,13 @@ Gem::Specification.new do |s|
   ]
   s.homepage = "http://github.com/calorie/vvm-rb"
   s.licenses = ["MIT"]
-  s.rubygems_version = "2.2.0"
+  s.rubygems_version = "2.2.1"
   s.summary = "vim version manager"
 
   if s.respond_to? :specification_version then
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rake>, [">= 0"])
       s.add_runtime_dependency(%q<thor>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<rubocop>, [">= 0"])
@@ -68,7 +68,6 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<simplecov>, [">= 0"])
       s.add_development_dependency(%q<coveralls>, [">= 0"])
     else
-      s.add_dependency(%q<rake>, [">= 0"])
       s.add_dependency(%q<thor>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<rubocop>, [">= 0"])
@@ -78,7 +77,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<coveralls>, [">= 0"])
     end
   else
-    s.add_dependency(%q<rake>, [">= 0"])
     s.add_dependency(%q<thor>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<rubocop>, [">= 0"])
