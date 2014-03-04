@@ -5,7 +5,7 @@ require 'tmpdir'
 describe 'Version' do
   describe 'list' do
     it 'echo available vim versions' do
-      expect(Version.list.join("\n")).to match(/^start\n(v7-.+\n)+tip$/)
+      expect(Version.list.join("\n")).to match(/\Astart\n(v7-.+\n)+tip\z/)
     end
   end
 
@@ -35,7 +35,7 @@ describe 'Version' do
 
   describe 'latest' do
     it 'return latest vim version' do
-      expect(Version.latest).to match(/^v7-.+$/)
+      expect(Version.latest).to match(/\Av7-.+\z/)
     end
   end
 
@@ -77,7 +77,7 @@ describe 'Version' do
 
     context 'latest' do
       it 'return latest vim version' do
-        expect(Version.format('latest')).to match(/^v7-.+$/)
+        expect(Version.format('latest')).to match(/\Av7-.+\z/)
       end
     end
   end

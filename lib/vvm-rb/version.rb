@@ -17,7 +17,7 @@ class Version
   end
 
   def self.latest
-    return list.select { |v| v =~ /^v7-.+$/ }.last
+    return list.select { |v| v =~ /\Av7-.+\z/ }.last
   end
 
   def self.current
@@ -31,9 +31,9 @@ class Version
 
   def self.format(version)
     case version
-    when /^latest$/
+    when /\Alatest\z/
       version = latest
-    when /^(\d\.\d(a|b){0,1}(\.\d+){0,1})$/
+    when /\A(\d\.\d(a|b){0,1}(\.\d+){0,1})\z/
       version = convert(version)
     end
     return version

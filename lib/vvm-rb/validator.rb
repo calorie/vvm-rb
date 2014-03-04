@@ -28,8 +28,8 @@ module Validator
   private
 
   def get_version
-    version_regex = /^v7-.+$|^(\d\.\d(a|b){0,1}(\.\d+){0,1})$/
-    regex = /(^start$|^tip$|^system$|^latest$|#{version_regex})/
+    version_regex = /\Av7-.+\z|\A(\d\.\d(a|b){0,1}(\.\d+){0,1})\z/
+    regex = /(\Astart\z|\Atip\z|\Asystem\z|\Alatest\z|#{version_regex})/
     version = $*.find { |v| v =~ regex }
     return Version.format(version)
   end
