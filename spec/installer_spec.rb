@@ -1,63 +1,86 @@
 require 'spec_helper'
 
-describe 'Installer' do
-  describe 'install' do
-    before :all do
-      FileUtils.rm_rf(get_src_dir)
-      FileUtils.rm_rf(get_vims_dir)
-      FileUtils.rm_rf(get_repos_dir)
-      FileUtils.rm_rf(get_etc_dir)
-      ENV['VVMOPT'] = '--enable-rubyinterp'
-      @version      = VERSION1
-      @installer    = Installer.new(@version, [], true)
-    end
+describe 'Installer', disable_cache: true do
+  before :all do
+    ENV['VVMOPT'] = '--enable-rubyinterp'
+    @version      = VERSION1
+    @installer    = Installer.new(@version, [], true)
+  end
 
-    context 'fetch' do
-      before :all do
-        Installer.fetch
-      end
+  let(:version_src_dir) { get_src_dir(@version) }
+  let(:version_vims_dir) { get_vims_dir(@version) }
+  let(:vim) { File.join(version_vims_dir, 'bin', 'vim') }
+
+  describe 'install' do
+    context 'fetch', clean: true do
+      before(:all) { Installer.fetch }
 
       it 'exists vimorg dir' do
         expect(File.exists?(get_vimorg_dir)).to be_true
       end
+
+      it 'success to clone' do
+        expect($?.success?).to be_true
+      end
+
+      it 'exists configure file' do
+        expect(File.exists?(File.join(get_vimorg_dir, 'configure'))).to be_true
+      end
     end
 
-    context 'pull' do
+    context 'pull', clean: true, vimorg: true do
       before :all do
+        Dir.chdir(get_vimorg_dir) { system('hg rollback') }
         Installer.pull
       end
 
-      it 'exists vimorg dir' do
+      it 'success to pull' do
         expect($?.success?).to be_true
+      end
+
+      it 'vim is uptodate' do
+        Dir.chdir(get_vimorg_dir) do
+          expect(`export LANG=en_US.UTF-8;hg pull`).to match(/no changes found/)
+        end
       end
     end
 
-    context 'checkout' do
+    context 'checkout', clean: true, vimorg: true do
       before :all do
         @installer.checkout
       end
 
       it 'exists src dir' do
-        expect(File.exists?(get_src_dir(@version))).to be_true
+        expect(File.exists?(version_src_dir)).to be_true
+      end
+
+      it 'exists configure file' do
+        expect(File.exists?(File.join(version_src_dir, 'configure'))).to be_true
       end
     end
 
-    context 'configure & make_install' do
+    context 'configure & make_install', clean: true, vimorg: true, src: true do
       before :all do
         @installer.configure
         @installer.make_install
       end
 
       it 'exists vims dir' do
-        expect(File.exists?(get_vims_dir(@version))).to be_true
+        expect(File.exists?(version_vims_dir)).to be_true
+      end
+
+      it 'can execute vim' do
+        expect(system("#{vim} --version > /dev/null 2>&1")).to be_true
+      end
+
+      it 'enable rubyinterp' do
+        expect(`#{vim} --version |grep ruby`).to match(/\+ruby/)
       end
     end
 
-    context 'cp_etc' do
+    context 'cp_etc', clean: true do
       context 'login file not exist' do
-        before :all do
-          Installer.cp_etc
-        end
+        before(:all) { Installer.cp_etc }
 
         it 'exists etc dir' do
           expect(File.exists?(get_etc_dir)).to be_true
@@ -67,6 +90,7 @@ describe 'Installer' do
           expect(File.exists?(get_login_file)).to be_true
         end
       end
+
       context 'login file exists and it is not latest' do
         before :all do
           FileUtils.stub(:compare_file).and_return(false)
@@ -80,29 +104,16 @@ describe 'Installer' do
         end
       end
     end
-
-    context 'vvmopt' do
-      let(:vim) { File.join(get_vims_dir(@version), 'bin', 'vim') }
-
-      it 'enable rubyinterp' do
-        expect(`#{vim} --version |grep ruby`).to match(/\+ruby/)
-      end
-    end
   end
 
   describe 'rebuild' do
-    before :all do
-      @version   = VERSION1
-      @installer = Installer.new(@version, [], true)
-    end
-
-    context 'make_clean' do
+    context 'make_clean', clean: true, src: true do
       before :all do
         @installer.make_clean
       end
 
       it 'not exists objects dir' do
-        path = File.join(get_src_dir(@version), 'src', 'objects', '*')
+        path = File.join(version_src_dir, 'src', 'objects', '*')
         expect(Dir[path].empty?).to be_true
       end
     end
