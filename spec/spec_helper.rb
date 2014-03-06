@@ -70,15 +70,13 @@ def remove_directories
 end
 
 def cp_vimorg_dir
-  unless File.exists?(get_vimorg_dir)
-    FileUtils.mkdir_p(get_repos_dir)
-    FileUtils.cp_r(File.join(get_cache_dir, 'repos', 'vimorg'), get_repos_dir)
-  end
+  return if File.exists?(get_vimorg_dir)
+  FileUtils.mkdir_p(get_repos_dir)
+  FileUtils.cp_r(File.join(get_cache_dir, 'repos', 'vimorg'), get_repos_dir)
 end
 
 def cp_src_dir
-  unless File.exists?(get_src_dir(@version))
-    FileUtils.mkdir_p(get_src_dir)
-    FileUtils.cp_r(File.join(get_cache_dir, 'src', @version), get_src_dir)
-  end
+  return if File.exists?(get_src_dir(@version))
+  FileUtils.mkdir_p(get_src_dir)
+  FileUtils.cp_r(File.join(get_cache_dir, 'src', @version), get_src_dir)
 end
