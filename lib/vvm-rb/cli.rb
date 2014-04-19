@@ -83,7 +83,7 @@ test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
 
   def self.init_vvm_rb
     before_method(*instance_methods(false)) do
-      Installer.fetch unless File.exists?(get_vimorg_dir)
+      Installer.fetch unless File.exist?(get_vimorg_dir)
     end
   end
 

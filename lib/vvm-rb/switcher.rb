@@ -7,10 +7,10 @@ class Switcher
 
   def use
     current = get_current_dir
-    FileUtils.rm(current) if File.exists?(current)
+    FileUtils.rm(current) if File.exist?(current)
     unless @version == 'system'
       vims_dir = get_vims_dir(@version)
-      abort "#{@version} is not installed." unless File.exists?(vims_dir)
+      abort "#{@version} is not installed." unless File.exist?(vims_dir)
       FileUtils.ln_s(vims_dir, current)
     end
   end

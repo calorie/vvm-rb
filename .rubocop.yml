@@ -1,5 +1,5 @@
 AllCops:
-  Excludes:
+  Exclude:
     - .bundle/**
     - .git/**
     - .vvm_cache/**
@@ -20,4 +20,6 @@ SpecialGlobalVars:
 AccessorMethodName:
   Enabled: false
 PredicateName:
+  Enabled: false
+FileName:
   Enabled: false

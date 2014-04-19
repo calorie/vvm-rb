@@ -16,7 +16,7 @@ describe 'Installer', disable_cache: true do
       before(:all) { Installer.fetch }
 
       it 'exists vimorg dir' do
-        expect(File.exists?(get_vimorg_dir)).to be_true
+        expect(File.exist?(get_vimorg_dir)).to be_true
       end
 
       it 'success to clone' do
@@ -24,7 +24,7 @@ describe 'Installer', disable_cache: true do
       end
 
       it 'exists configure file' do
-        expect(File.exists?(File.join(get_vimorg_dir, 'configure'))).to be_true
+        expect(File.exist?(File.join(get_vimorg_dir, 'configure'))).to be_true
       end
     end
 
@@ -51,11 +51,11 @@ describe 'Installer', disable_cache: true do
       end
 
       it 'exists src dir' do
-        expect(File.exists?(version_src_dir)).to be_true
+        expect(File.exist?(version_src_dir)).to be_true
       end
 
       it 'exists configure file' do
-        expect(File.exists?(File.join(version_src_dir, 'configure'))).to be_true
+        expect(File.exist?(File.join(version_src_dir, 'configure'))).to be_true
       end
     end
 
@@ -66,7 +66,7 @@ describe 'Installer', disable_cache: true do
       end
 
       it 'exists vims dir' do
-        expect(File.exists?(version_vims_dir)).to be_true
+        expect(File.exist?(version_vims_dir)).to be_true
       end
 
       it 'can execute vim' do
@@ -83,11 +83,11 @@ describe 'Installer', disable_cache: true do
         before(:all) { Installer.cp_etc }
 
         it 'exists etc dir' do
-          expect(File.exists?(get_etc_dir)).to be_true
+          expect(File.exist?(get_etc_dir)).to be_true
         end
 
         it 'exists login file' do
-          expect(File.exists?(get_login_file)).to be_true
+          expect(File.exist?(get_login_file)).to be_true
         end
       end
 

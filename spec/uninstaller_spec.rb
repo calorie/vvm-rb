@@ -25,11 +25,11 @@ describe 'Uninstaller' do
       end
 
       it 'delete src dir' do
-        expect(File.exists?(get_src_dir(@version))).not_to be_true
+        expect(File.exist?(get_src_dir(@version))).not_to be_true
       end
 
       it 'delete vims dir' do
-        expect(File.exists?(get_vims_dir(@version))).not_to be_true
+        expect(File.exist?(get_vims_dir(@version))).not_to be_true
       end
     end
   end

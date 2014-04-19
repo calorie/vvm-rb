@@ -11,7 +11,7 @@ class Installer
   def self.fetch
     FileUtils.mkdir_p(get_repos_dir)
     repos_dir = get_vimorg_dir
-    system("hg -q clone #{VIM_URI} #{repos_dir}") unless File.exists?(repos_dir)
+    system("hg -q clone #{VIM_URI} #{repos_dir}") unless File.exist?(repos_dir)
   end
 
   def self.pull
@@ -21,7 +21,7 @@ class Installer
   def checkout
     src_dir = get_src_dir
     FileUtils.mkdir_p(src_dir)
-    unless File.exists?(get_src_dir(@version))
+    unless File.exist?(get_src_dir(@version))
       archive = "hg archive -t tar -r #{@version} -p #{@version} -"
       expand  = "(cd #{src_dir} && tar xf -)"
       Dir.chdir get_vimorg_dir do
@@ -57,7 +57,7 @@ class Installer
     current_login = get_login_file
     path = File.join(File.dirname(__FILE__), '..', '..', 'etc', 'login')
     login = File.expand_path(path)
-    if !File.exists?(current_login)
+    if !File.exist?(current_login)
       etc_dir = get_etc_dir
       FileUtils.mkdir_p(etc_dir)
       FileUtils.cp(login, etc_dir)

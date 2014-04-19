@@ -27,7 +27,7 @@ VERSION1, VERSION2 = 'v7-4-083', 'v7-4-103'
 RSpec.configure do |config|
   config.before :suite do
     cache_dir = get_cache_dir
-    unless File.exists?(cache_dir)
+    unless File.exist?(cache_dir)
       ENV['VVMROOT'] = cache_dir
       FileUtils.mkdir_p(cache_dir)
       Installer.fetch
@@ -65,18 +65,18 @@ end
 
 def remove_directories
   [get_src_dir, get_vims_dir, get_vims_dir, get_etc_dir].each do |dir|
-    FileUtils.rm_rf(dir) if File.exists?(dir)
+    FileUtils.rm_rf(dir) if File.exist?(dir)
   end
 end
 
 def cp_vimorg_dir
-  return if File.exists?(get_vimorg_dir)
+  return if File.exist?(get_vimorg_dir)
   FileUtils.mkdir_p(get_repos_dir)
   FileUtils.cp_r(File.join(get_cache_dir, 'repos', 'vimorg'), get_repos_dir)
 end
 
 def cp_src_dir
-  return if File.exists?(get_src_dir(@version))
+  return if File.exist?(get_src_dir(@version))
   FileUtils.mkdir_p(get_src_dir)
   FileUtils.cp_r(File.join(get_cache_dir, 'src', @version), get_src_dir)
 end

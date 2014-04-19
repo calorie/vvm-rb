@@ -9,7 +9,7 @@ class Version
   def self.versions
     output   = []
     vims_dir = get_vims_dir
-    return output unless File.exists?(vims_dir)
+    return output unless File.exist?(vims_dir)
     Dir.glob(File.join(vims_dir, 'v*')).sort.each do |d|
       output << File.basename(d)
     end
@@ -22,7 +22,7 @@ class Version
 
   def self.current
     c = get_current_dir
-    return File.exists?(c) ? File.basename(File.readlink(c)) : 'system'
+    return File.exist?(c) ? File.basename(File.readlink(c)) : 'system'
   end
 
   def self.convert(version)
