@@ -21,6 +21,7 @@ Jeweler::Tasks.new do |gem|
   gem.description = %Q{vim version manager.}
   gem.email = "s2g4t1n2@gmail.com"
   gem.authors = ["Yuu Shigetani"]
+  gem.required_ruby_version = '>= 1.9'
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
