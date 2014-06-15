@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Accesser' do
+describe 'Accessor' do
   it 'can access vvm-rb home directory' do
     expect(File.exist?(get_dot_dir)).to be_true
   end
