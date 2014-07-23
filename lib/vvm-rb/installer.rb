@@ -21,12 +21,11 @@ class Installer
   def checkout
     src_dir = get_src_dir
     FileUtils.mkdir_p(src_dir)
-    unless File.exist?(get_src_dir(@version))
-      archive = "hg archive -t tar -r #{@version} -p #{@version} -"
-      expand  = "(cd #{src_dir} && tar xf -)"
-      Dir.chdir get_vimorg_dir do
-        system("#{archive} | #{expand} #{@silent}")
-      end
+    return if File.exist?(get_src_dir(@version))
+    archive = "hg archive -t tar -r #{@version} -p #{@version} -"
+    expand  = "(cd #{src_dir} && tar xf -)"
+    Dir.chdir get_vimorg_dir do
+      system("#{archive} | #{expand} #{@silent}")
     end
   end
 

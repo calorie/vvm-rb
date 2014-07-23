@@ -1,12 +1,14 @@
 AllCops:
   Exclude:
-    - .bundle/**
-    - .git/**
-    - .vvm_cache/**
-    - coverage/**
-    - etc/**
-    - pkg/**
-    - vendor/**
+    - .bundle/**/*
+    - .git/**/*
+    - .vvm_cache/**/*
+    - coverage/**/*
+    - etc/**/*
+    - pkg/**/*
+    - vendor/**/*
+    - Rakefile
+    - vvm-rb.gemspec
 LineLength:
   Max: 80
 MethodLength:

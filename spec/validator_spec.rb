@@ -5,7 +5,7 @@ describe 'Validator' do
   NEW_VERSION = 'v7-4-050'
 
   describe 'has_hg?' do
-    def dummy_method ; end
+    def dummy_method; end
     before_method(:dummy_method) { has_hg? }
 
     context 'hg is installed' do
@@ -26,7 +26,7 @@ describe 'Validator' do
   end
 
   describe 'version?' do
-    def dummy_method ; end
+    def dummy_method; end
     before_method(:dummy_method) { version? }
 
     before(:all) { $* << %w(vvm-rb install) }
@@ -57,7 +57,7 @@ describe 'Validator' do
   end
 
   describe 'new_version?' do
-    def dummy_method ; end
+    def dummy_method; end
 
     context 'new version' do
       before_method(:dummy_method) { new_version?(NEW_VERSION) }
@@ -77,7 +77,7 @@ describe 'Validator' do
   end
 
   describe 'has_version?' do
-    def dummy_method ; end
+    def dummy_method; end
 
     context 'version is installed' do
       before_method(:dummy_method) { has_version?(VERSION1) }

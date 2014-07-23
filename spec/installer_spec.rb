@@ -16,15 +16,15 @@ describe 'Installer', disable_cache: true do
       before(:all) { Installer.fetch }
 
       it 'exists vimorg dir' do
-        expect(File.exist?(get_vimorg_dir)).to be_true
+        expect(File.exist?(get_vimorg_dir)).to be_truthy
       end
 
       it 'success to clone' do
-        expect($?.success?).to be_true
+        expect($?.success?).to be_truthy
       end
 
       it 'exists configure file' do
-        expect(File.exist?(File.join(get_vimorg_dir, 'configure'))).to be_true
+        expect(File.exist?(File.join(get_vimorg_dir, 'configure'))).to be_truthy
       end
     end
 
@@ -35,7 +35,7 @@ describe 'Installer', disable_cache: true do
       end
 
       it 'success to pull' do
-        expect($?.success?).to be_true
+        expect($?.success?).to be_truthy
       end
 
       it 'vim is uptodate' do
@@ -51,11 +51,12 @@ describe 'Installer', disable_cache: true do
       end
 
       it 'exists src dir' do
-        expect(File.exist?(version_src_dir)).to be_true
+        expect(File.exist?(version_src_dir)).to be_truthy
       end
 
       it 'exists configure file' do
-        expect(File.exist?(File.join(version_src_dir, 'configure'))).to be_true
+        configure = File.join(version_src_dir, 'configure')
+        expect(File.exist?(configure)).to be_truthy
       end
     end
 
@@ -66,11 +67,11 @@ describe 'Installer', disable_cache: true do
       end
 
       it 'exists vims dir' do
-        expect(File.exist?(version_vims_dir)).to be_true
+        expect(File.exist?(version_vims_dir)).to be_truthy
       end
 
       it 'can execute vim' do
-        expect(system("#{vim} --version > /dev/null 2>&1")).to be_true
+        expect(system("#{vim} --version > /dev/null 2>&1")).to be_truthy
       end
 
       it 'enable rubyinterp' do
@@ -83,16 +84,16 @@ describe 'Installer', disable_cache: true do
         before(:all) { Installer.cp_etc }
 
         it 'exists etc dir' do
-          expect(File.exist?(get_etc_dir)).to be_true
+          expect(File.exist?(get_etc_dir)).to be_truthy
         end
 
         it 'exists login file' do
-          expect(File.exist?(get_login_file)).to be_true
+          expect(File.exist?(get_login_file)).to be_truthy
         end
       end
 
       context 'login file exists and it is not latest' do
-        before :all do
+        before do
           FileUtils.stub(:compare_file).and_return(false)
         end
 
@@ -114,7 +115,7 @@ describe 'Installer', disable_cache: true do
 
       it 'not exists objects dir' do
         path = File.join(version_src_dir, 'src', 'objects', '*')
-        expect(Dir[path].empty?).to be_true
+        expect(Dir[path].empty?).to be_truthy
       end
     end
   end
