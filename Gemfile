@@ -4,7 +4,7 @@ gem 'thor', '~> 0.19.1'
 
 group :development do
   gem 'rspec', '~> 3.0.0'
-  gem 'rubocop', '~> 0.24.1'
+  gem 'rubocop', '~> 0.25.0'
   gem 'rdoc', '~> 4.1.1'
   gem 'jeweler', '~> 2.0.1'
   gem 'simplecov', '~> 0.9.0'
