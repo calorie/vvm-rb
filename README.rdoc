@@ -40,16 +40,16 @@ you can set your default options of configure:
 
 == Commands Examples
 
-  $ vvm-rb help
-  $ vvm-rb install 7.4.103 --enable-rubyinterp
-  $ vvm-rb install --use latest
-  $ vvm-rb reinstall 7.4.103
-  $ vvm-rb rebuild 7.4.103 --enable-rubyinterp --enable-pythoninterp
-  $ vvm-rb use 7.4.103
-  $ vvm-rb list
-  $ vvm-rb versions
-  $ vvm-rb uninstall 7.4.103
-  $ vvm-rb update
+  $ vvm help
+  $ vvm install 7.4.103 --enable-rubyinterp
+  $ vvm install --use latest
+  $ vvm reinstall 7.4.103
+  $ vvm rebuild 7.4.103 --enable-rubyinterp --enable-pythoninterp
+  $ vvm use 7.4.103
+  $ vvm list
+  $ vvm versions
+  $ vvm uninstall 7.4.103
+  $ vvm update
 
 after use command, you have to reload shell:
 
