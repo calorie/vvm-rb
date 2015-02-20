@@ -72,6 +72,6 @@ after use command, you have to reload shell:
 
 == Copyright
 
-Copyright (c) 2013 Yuu Shigetani. See LICENSE.txt for
+Copyright (c) 2013-2015 Yuu Shigetani. See LICENSE.txt for
 further details.
 
