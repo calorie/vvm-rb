@@ -4,7 +4,7 @@ describe 'Installer', disable_cache: true do
   before :all do
     ENV['VVMOPT'] = '--enable-rubyinterp'
     @version      = VERSION1
-    @installer    = Installer.new(@version, [], true)
+    @installer    = Vvm::Installer.new(@version, [], true)
   end
 
   let(:version_src_dir) { get_src_dir(@version) }
@@ -13,7 +13,7 @@ describe 'Installer', disable_cache: true do
 
   describe 'install' do
     context 'fetch', clean: true do
-      before(:all) { Installer.fetch }
+      before(:all) { Vvm::Installer.fetch }
 
       it 'exists vimorg dir' do
         expect(File.exist?(get_vimorg_dir)).to be_truthy
@@ -31,7 +31,7 @@ describe 'Installer', disable_cache: true do
     context 'pull', clean: true, vimorg: true do
       before :all do
         Dir.chdir(get_vimorg_dir) { system('hg rollback') }
-        Installer.pull
+        Vvm::Installer.pull
       end
 
       it 'success to pull' do
@@ -81,7 +81,7 @@ describe 'Installer', disable_cache: true do
 
     context 'cp_etc', clean: true do
       context 'login file not exist' do
-        before(:all) { Installer.cp_etc }
+        before(:all) { Vvm::Installer.cp_etc }
 
         it 'exists etc dir' do
           expect(File.exist?(get_etc_dir)).to be_truthy
@@ -94,14 +94,14 @@ describe 'Installer', disable_cache: true do
 
       context 'login file exists and it is not latest' do
         before do
-          FileUtils.stub(:compare_file).and_return(false)
+          allow(FileUtils).to receive(:compare_file).and_return(false)
         end
 
         it 'exists login file' do
           path = File.join(File.dirname(__FILE__), '..', 'etc', 'login')
           login = File.expand_path(path)
           expect(FileUtils).to receive(:cp).with(login, get_etc_dir)
-          Installer.cp_etc
+          Vvm::Installer.cp_etc
         end
       end
     end

@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+begin
+  require 'vvm'
+  require 'vvm/cli'
+rescue LoadError
+  require 'rubygems'
+  require 'vvm'
+  require 'vvm/cli'
+end
+
+Vvm::Cli.source_root(File.join(File.dirname(__FILE__), '..'))
+Vvm::Cli.start

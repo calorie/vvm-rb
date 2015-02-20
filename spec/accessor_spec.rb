@@ -30,8 +30,8 @@ describe 'Accessor' do
   end
 
   context 'of current directory' do
-    before { Switcher.new(VERSION1).use }
-    after { Switcher.new('system').use }
+    before { Vvm::Switcher.new(VERSION1).use }
+    after { Vvm::Switcher.new('system').use }
 
     it 'can access current directory' do
       expect(File.exist?(get_current_dir)).to be_truthy

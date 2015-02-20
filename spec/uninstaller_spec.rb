@@ -5,8 +5,8 @@ describe 'Uninstaller' do
     context 'vim version is currently used' do
       before :all do
         version = VERSION1
-        Switcher.new(version).use
-        @uninstaller = Uninstaller.new(version)
+        Vvm::Switcher.new(version).use
+        @uninstaller = Vvm::Uninstaller.new(version)
       end
 
       after :all do
@@ -21,7 +21,8 @@ describe 'Uninstaller' do
     context 'can uninstall version' do
       before :all do
         @version = VERSION1
-        Uninstaller.new(@version).uninstall
+        Vvm::Switcher.new('system').use
+        Vvm::Uninstaller.new(@version).uninstall
       end
 
       it 'delete src dir' do

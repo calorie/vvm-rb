@@ -10,7 +10,7 @@ AllCops:
     - Rakefile
     - vvm-rb.gemspec
 LineLength:
-  Max: 80
+  Max: 90
 MethodLength:
   Max: 30
 RedundantReturn:

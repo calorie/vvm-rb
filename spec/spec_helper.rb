@@ -14,11 +14,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'rspec'
 require 'fileutils'
 require 'tmpdir'
-require 'vvm-rb'
-include VvmRb
-
-support = File.join(File.dirname(__FILE__), 'support', '**', '*.rb')
-Dir[support].each { |f| require f }
+require 'vvm'
 
 VERSION1, VERSION2 = 'v7-4-083', 'v7-4-103'
 
@@ -30,14 +26,14 @@ RSpec.configure do |config|
     unless File.exist?(cache_dir)
       ENV['VVMROOT'] = cache_dir
       FileUtils.mkdir_p(cache_dir)
-      Installer.fetch
+      Vvm::Installer.fetch
       [VERSION1, VERSION2].each do |v|
         i = Installer.new(v, [], true)
         i.checkout
         i.configure
         i.make_install
       end
-      Installer.cp_etc
+      Vvm::Installer.cp_etc
     end
   end
 
