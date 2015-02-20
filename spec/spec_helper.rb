@@ -28,7 +28,7 @@ RSpec.configure do |config|
       FileUtils.mkdir_p(cache_dir)
       Vvm::Installer.fetch
       [VERSION1, VERSION2].each do |v|
-        i = Installer.new(v, [], true)
+        i = Vvm::Installer.new(v, [], true)
         i.checkout
         i.configure
         i.make_install
