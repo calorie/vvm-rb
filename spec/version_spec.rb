@@ -62,7 +62,6 @@ describe 'Version' do
   end
 
   describe 'format' do
-
     context 'tag' do
       it 'return formated vim version' do
         expect(Vvm::Version.format('v7-4-112')).to eq 'v7-4-112'

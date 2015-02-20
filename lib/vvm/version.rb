@@ -3,7 +3,7 @@ module Vvm
     def self.list
       Dir.chdir(get_vimorg_dir) do
         list = `hg tags`.split.reverse
-        return list.values_at(* list.each_index.select { |i| i.odd? })
+        return list.values_at(* list.each_index.select(&:odd?))
       end
     end
 

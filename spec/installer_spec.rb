@@ -119,4 +119,24 @@ describe 'Installer', disable_cache: true do
       end
     end
   end
+
+  describe 'message' do
+    before { system('') }
+
+    it 'command failed' do
+      allow($?).to receive(:success?).and_return(false)
+      expect { @installer.message }.to_not output(/success/).to_stdout
+    end
+
+    it 'silent' do
+      allow($?).to receive(:success?).and_return(true)
+      expect { @installer.message }.to_not output(/success/).to_stdout
+    end
+
+    it 'success' do
+      allow($?).to receive(:success?).and_return(true)
+      installer = Vvm::Installer.new(@version, [])
+      expect { installer.message }.to output(/success/).to_stdout
+    end
+  end
 end

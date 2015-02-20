@@ -67,7 +67,7 @@ module Vvm
     end
 
     def message
-      return if !$?.success? || @silent.empty?
+      return if !$?.success? || !@silent.empty?
       print "\e[32m"
       puts <<-EOS
 

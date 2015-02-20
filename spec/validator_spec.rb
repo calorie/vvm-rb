@@ -5,26 +5,107 @@ describe 'Validator' do
 
   NEW_VERSION = 'v7-4-050'
 
+  describe 'validate_before_invoke' do
+    before do
+      allow(Vvm::Validator).to receive(:new_version?).and_return(true)
+      allow(Vvm::Validator).to receive(:has_version?).and_return(true)
+      allow(Vvm::Validator).to receive(:version?).and_return(true)
+      allow(Vvm::Validator).to receive(:has_hg?).and_return(true)
+    end
+
+    context 'install' do
+      it 'new_version?' do
+        expect(Vvm::Validator).to receive(:new_version?).with(no_args)
+        Vvm::Validator.validate_before_invoke('install')
+      end
+
+      it 'version?' do
+        expect(Vvm::Validator).to receive(:version?).with(no_args)
+        Vvm::Validator.validate_before_invoke('install')
+      end
+
+      it 'has_hg?' do
+        expect(Vvm::Validator).to receive(:has_hg?).with(no_args)
+        Vvm::Validator.validate_before_invoke('install')
+      end
+    end
+
+    context 'reinstall' do
+      it 'has_hg?' do
+        expect(Vvm::Validator).to receive(:has_hg?).with(no_args)
+        Vvm::Validator.validate_before_invoke('reinstall')
+      end
+    end
+
+    context 'rebuild' do
+      it 'has_version?' do
+        expect(Vvm::Validator).to receive(:has_version?).with(no_args)
+        Vvm::Validator.validate_before_invoke('rebuild')
+      end
+
+      it 'version?' do
+        expect(Vvm::Validator).to receive(:version?).with(no_args)
+        Vvm::Validator.validate_before_invoke('rebuild')
+      end
+
+      it 'has_hg?' do
+        expect(Vvm::Validator).to receive(:has_hg?).with(no_args)
+        Vvm::Validator.validate_before_invoke('rebuild')
+      end
+    end
+
+    context 'use' do
+      it 'has_version?' do
+        expect(Vvm::Validator).to receive(:has_version?).with(no_args)
+        Vvm::Validator.validate_before_invoke('use')
+      end
+
+      it 'version?' do
+        expect(Vvm::Validator).to receive(:version?).with(no_args)
+        Vvm::Validator.validate_before_invoke('use')
+      end
+    end
+
+    context 'list' do
+      it 'has_hg?' do
+        expect(Vvm::Validator).to receive(:has_hg?).with(no_args)
+        Vvm::Validator.validate_before_invoke('list')
+      end
+    end
+
+    context 'uninstall' do
+      it 'has_version?' do
+        expect(Vvm::Validator).to receive(:has_version?).with(no_args)
+        Vvm::Validator.validate_before_invoke('uninstall')
+      end
+
+      it 'version?' do
+        expect(Vvm::Validator).to receive(:version?).with(no_args)
+        Vvm::Validator.validate_before_invoke('uninstall')
+      end
+    end
+  end
+
   describe 'has_hg?' do
     context 'hg is installed' do
-      before { allow(Kernel).to receive(:find_executable).and_return(true) }
+      before { allow(Vvm::Validator).to receive(:find_executable).and_return(true) }
 
       it 'success to run the method' do
-        expect(has_hg?).to be_truthy
+        expect(Vvm::Validator.has_hg?).to be_truthy
       end
     end
 
     context 'hg is not installed' do
-      before { allow(Kernel).to receive(:find_executable).and_return(false) }
+      before { allow(Vvm::Validator).to receive(:find_executable).and_return(false) }
 
       it 'cannot run the method' do
-        expect(proc { has_hg? }).to raise_error
+        expect(proc { Vvm::Validator.has_hg? }).to raise_error
       end
     end
   end
 
   describe 'version?' do
-    before(:all) { $* << %w(vvm-rb install) }
+    before(:all) { $* << %w(vvm install) }
 
     context 'available tag' do
       before { $*[2] = NEW_VERSION }

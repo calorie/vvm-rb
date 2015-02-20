@@ -7,20 +7,18 @@ module Vvm
     def validate_before_invoke(command)
       new_version? if command == 'install'
       has_version? if %w(reinstall rebuild use uninstall).include?(command)
-      version? if %w(install reinstall rebuild use uninstall).include?(command)
+      version? if %w(install rebuild use uninstall).include?(command)
       has_hg? if %w(install reinstall rebuild list).include?(command)
     end
 
     def has_hg?
-      unless Kernel.find_executable('hg')
-        abort 'mercurial is required to install.'
-      end
+      abort 'mercurial is required to install.' unless find_executable('hg')
       return true
     end
 
     def version?
       if get_version.nil?
-        abort 'undefined vim version. please run [ vvm-rb list ].'
+        abort 'undefined vim version. please run [ vvm list ].'
       end
       return true
     end
