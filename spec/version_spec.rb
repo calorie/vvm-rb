@@ -5,6 +5,7 @@ require 'tmpdir'
 describe 'Version' do
   describe 'list' do
     it 'echo available vim versions' do
+      FileUtils.rm_rf(vimorg_dir) if File.exist?(vimorg_dir)
       expect(Vvm::Version.list.join("\n")).to match(/\Astart\n(v7-.+\n)+tip\z/)
     end
   end

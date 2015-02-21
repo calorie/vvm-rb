@@ -5,10 +5,10 @@ module Vvm
     module_function
 
     def validate_before_invoke(command)
-      new_version? if command == 'install'
-      installed_version? if %w(reinstall rebuild use uninstall).include?(command)
       version? if %w(install rebuild use uninstall).include?(command)
       hg? if %w(install reinstall rebuild list).include?(command)
+      new_version? if command == 'install'
+      installed_version? if %w(reinstall rebuild use uninstall).include?(command)
     end
 
     def hg?
@@ -17,7 +17,7 @@ module Vvm
     end
 
     def version?
-      abort 'undefined vim version. please run [ vvm list ].' if version.nil?
+      abort 'undefined vim version. please run [ vvm list ].' if find_version.nil?
       true
     end
 
@@ -33,11 +33,14 @@ module Vvm
 
     private
 
-    def version
+    def find_version
       version_regex = /\Av7-.+\z|\A(\d\.\d(a|b){0,1}(\.\d+){0,1})\z/
       regex = /(\Astart\z|\Atip\z|\Asystem\z|\Alatest\z|#{version_regex})/
-      ver = $*.find { |v| v =~ regex }
-      Version.format(ver)
+      $*.find { |v| v =~ regex }
+    end
+
+    def version
+      Version.format(find_version)
     end
 
     def version_include?(ver)

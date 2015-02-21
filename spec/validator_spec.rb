@@ -108,7 +108,7 @@ describe 'Validator' do
     before(:all) { $* << %w(vvm install) }
 
     context 'available tag' do
-      before { $*[2] = NEW_VERSION }
+      before(:all) { $*[2] = NEW_VERSION }
 
       it 'success to run the method' do
         expect(version?).to be_truthy
@@ -116,7 +116,7 @@ describe 'Validator' do
     end
 
     context 'latest' do
-      before { $*[2] = 'latest' }
+      before(:all) { $*[2] = 'latest' }
 
       it 'success to run the method' do
         expect(version?).to be_truthy
@@ -124,7 +124,7 @@ describe 'Validator' do
     end
 
     context 'tag is not available' do
-      before { $*[2] = '--use' }
+      before(:all) { $*[2] = '--use' }
 
       it 'cannot run the method' do
         expect(proc { version? }).to raise_error
@@ -133,29 +133,73 @@ describe 'Validator' do
   end
 
   describe 'new_version?' do
-    context 'new version' do
-      it 'success to run the method' do
-        expect(new_version?(NEW_VERSION)).to be_truthy
+    context 'with arg' do
+      context 'new version' do
+        it 'success to run the method' do
+          expect(new_version?(NEW_VERSION)).to be_truthy
+        end
+      end
+
+      context 'version is installed' do
+        it 'cannot run the method' do
+          expect(proc { new_version?(VERSION1) }).to raise_error
+        end
       end
     end
 
-    context 'version is installed' do
-      it 'cannot run the method' do
-        expect(proc { new_version?(VERSION1) }).to raise_error
+    context 'without arg' do
+      before(:all) { $* << %w(vvm install) }
+
+      context 'new version' do
+        before(:all) { $*[2] = NEW_VERSION }
+
+        it 'success to run the method' do
+          expect(new_version?).to be_truthy
+        end
+      end
+
+      context 'version is installed' do
+        before(:all) { $*[2] = VERSION1 }
+
+        it 'cannot run the method' do
+          expect(proc { new_version? }).to raise_error
+        end
       end
     end
   end
 
   describe 'installed_version?' do
-    context 'version is installed' do
-      it 'success to run the method' do
-        expect(installed_version?(VERSION1)).to be_truthy
+    context 'with arg' do
+      context 'version is installed' do
+        it 'success to run the method' do
+          expect(installed_version?(VERSION1)).to be_truthy
+        end
+      end
+
+      context 'version is not installed' do
+        it 'cannot run the method' do
+          expect(proc { installed_version?(NEW_VERSION) }).to raise_error
+        end
       end
     end
 
-    context 'version is not installed' do
-      it 'cannot run the method' do
-        expect(proc { installed_version?(NEW_VERSION) }).to raise_error
+    context 'without arg' do
+      before(:all) { $* << %w(vvm install) }
+
+      context 'version is installed' do
+        before(:all) { $*[2] = VERSION1 }
+
+        it 'success to run the method' do
+          expect(installed_version?).to be_truthy
+        end
+      end
+
+      context 'version is not installed' do
+        before(:all) { $*[2] = NEW_VERSION }
+
+        it 'cannot run the method' do
+          expect(proc { installed_version? }).to raise_error
+        end
       end
     end
   end
