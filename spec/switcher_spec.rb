@@ -8,7 +8,7 @@ describe 'Switcher' do
       end
 
       it 'delete current' do
-        expect(File.exist?(get_current_dir)).not_to be_truthy
+        expect(File.exist?(current_dir)).not_to be_truthy
       end
     end
 
@@ -16,8 +16,8 @@ describe 'Switcher' do
       before :all do
         version = VERSION1
         Vvm::Switcher.new(version).use
-        @vims_dir = get_vims_dir(version)
-        @current  = get_current_dir
+        @vims_dir = vims_dir(version)
+        @current  = current_dir
       end
 
       it 'exist current' do

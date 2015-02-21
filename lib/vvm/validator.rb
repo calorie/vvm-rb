@@ -6,48 +6,46 @@ module Vvm
 
     def validate_before_invoke(command)
       new_version? if command == 'install'
-      has_version? if %w(reinstall rebuild use uninstall).include?(command)
+      installed_version? if %w(reinstall rebuild use uninstall).include?(command)
       version? if %w(install rebuild use uninstall).include?(command)
-      has_hg? if %w(install reinstall rebuild list).include?(command)
+      hg? if %w(install reinstall rebuild list).include?(command)
     end
 
-    def has_hg?
+    def hg?
       abort 'mercurial is required to install.' unless find_executable('hg')
-      return true
+      true
     end
 
     def version?
-      if get_version.nil?
-        abort 'undefined vim version. please run [ vvm list ].'
-      end
-      return true
+      abort 'undefined vim version. please run [ vvm list ].' if version.nil?
+      true
     end
 
-    def new_version?(version = get_version)
-      abort "#{version} is already installed." if version_include?(version)
-      return true
+    def new_version?(ver = version)
+      abort "#{ver} is already installed." if version_include?(ver)
+      true
     end
 
-    def has_version?(version = get_version)
-      abort "#{version} is not installed." unless version_include?(version)
-      return true
+    def installed_version?(ver = version)
+      abort "#{ver} is not installed." unless version_include?(ver)
+      true
     end
 
     private
 
-    def get_version
+    def version
       version_regex = /\Av7-.+\z|\A(\d\.\d(a|b){0,1}(\.\d+){0,1})\z/
       regex = /(\Astart\z|\Atip\z|\Asystem\z|\Alatest\z|#{version_regex})/
-      version = $*.find { |v| v =~ regex }
-      return Version.format(version)
+      ver = $*.find { |v| v =~ regex }
+      Version.format(ver)
     end
 
-    def version_include?(version)
-      return Version.versions.include?(version) || use_system?(version)
+    def version_include?(ver)
+      Version.versions.include?(ver) || use_system?(ver)
     end
 
-    def use_system?(version)
-      return version == 'system' && $*.include?('use')
+    def use_system?(ver)
+      ver == 'system' && $*.include?('use')
     end
   end
 end

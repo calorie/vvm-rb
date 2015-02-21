@@ -8,9 +8,9 @@ describe 'Validator' do
   describe 'validate_before_invoke' do
     before do
       allow(Vvm::Validator).to receive(:new_version?).and_return(true)
-      allow(Vvm::Validator).to receive(:has_version?).and_return(true)
+      allow(Vvm::Validator).to receive(:installed_version?).and_return(true)
       allow(Vvm::Validator).to receive(:version?).and_return(true)
-      allow(Vvm::Validator).to receive(:has_hg?).and_return(true)
+      allow(Vvm::Validator).to receive(:hg?).and_return(true)
     end
 
     context 'install' do
@@ -24,22 +24,22 @@ describe 'Validator' do
         Vvm::Validator.validate_before_invoke('install')
       end
 
-      it 'has_hg?' do
-        expect(Vvm::Validator).to receive(:has_hg?).with(no_args)
+      it 'hg?' do
+        expect(Vvm::Validator).to receive(:hg?).with(no_args)
         Vvm::Validator.validate_before_invoke('install')
       end
     end
 
     context 'reinstall' do
-      it 'has_hg?' do
-        expect(Vvm::Validator).to receive(:has_hg?).with(no_args)
+      it 'hg?' do
+        expect(Vvm::Validator).to receive(:hg?).with(no_args)
         Vvm::Validator.validate_before_invoke('reinstall')
       end
     end
 
     context 'rebuild' do
-      it 'has_version?' do
-        expect(Vvm::Validator).to receive(:has_version?).with(no_args)
+      it 'installed_version?' do
+        expect(Vvm::Validator).to receive(:installed_version?).with(no_args)
         Vvm::Validator.validate_before_invoke('rebuild')
       end
 
@@ -48,15 +48,15 @@ describe 'Validator' do
         Vvm::Validator.validate_before_invoke('rebuild')
       end
 
-      it 'has_hg?' do
-        expect(Vvm::Validator).to receive(:has_hg?).with(no_args)
+      it 'hg?' do
+        expect(Vvm::Validator).to receive(:hg?).with(no_args)
         Vvm::Validator.validate_before_invoke('rebuild')
       end
     end
 
     context 'use' do
-      it 'has_version?' do
-        expect(Vvm::Validator).to receive(:has_version?).with(no_args)
+      it 'installed_version?' do
+        expect(Vvm::Validator).to receive(:installed_version?).with(no_args)
         Vvm::Validator.validate_before_invoke('use')
       end
 
@@ -67,15 +67,15 @@ describe 'Validator' do
     end
 
     context 'list' do
-      it 'has_hg?' do
-        expect(Vvm::Validator).to receive(:has_hg?).with(no_args)
+      it 'hg?' do
+        expect(Vvm::Validator).to receive(:hg?).with(no_args)
         Vvm::Validator.validate_before_invoke('list')
       end
     end
 
     context 'uninstall' do
-      it 'has_version?' do
-        expect(Vvm::Validator).to receive(:has_version?).with(no_args)
+      it 'installed_version?' do
+        expect(Vvm::Validator).to receive(:installed_version?).with(no_args)
         Vvm::Validator.validate_before_invoke('uninstall')
       end
 
@@ -86,12 +86,12 @@ describe 'Validator' do
     end
   end
 
-  describe 'has_hg?' do
+  describe 'hg?' do
     context 'hg is installed' do
       before { allow(Vvm::Validator).to receive(:find_executable).and_return(true) }
 
       it 'success to run the method' do
-        expect(Vvm::Validator.has_hg?).to be_truthy
+        expect(Vvm::Validator.hg?).to be_truthy
       end
     end
 
@@ -99,7 +99,7 @@ describe 'Validator' do
       before { allow(Vvm::Validator).to receive(:find_executable).and_return(false) }
 
       it 'cannot run the method' do
-        expect(proc { Vvm::Validator.has_hg? }).to raise_error
+        expect(proc { Vvm::Validator.hg? }).to raise_error
       end
     end
   end
@@ -146,16 +146,16 @@ describe 'Validator' do
     end
   end
 
-  describe 'has_version?' do
+  describe 'installed_version?' do
     context 'version is installed' do
       it 'success to run the method' do
-        expect(has_version?(VERSION1)).to be_truthy
+        expect(installed_version?(VERSION1)).to be_truthy
       end
     end
 
     context 'version is not installed' do
       it 'cannot run the method' do
-        expect(proc { has_version?(NEW_VERSION) }).to raise_error
+        expect(proc { installed_version?(NEW_VERSION) }).to raise_error
       end
     end
   end

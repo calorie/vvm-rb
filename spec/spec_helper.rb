@@ -22,10 +22,10 @@ VERSION1, VERSION2 = 'v7-4-083', 'v7-4-103'
 
 RSpec.configure do |config|
   config.before :suite do
-    cache_dir = get_cache_dir
-    unless File.exist?(cache_dir)
-      ENV['VVMROOT'] = cache_dir
-      FileUtils.mkdir_p(cache_dir)
+    cache = cache_dir
+    unless File.exist?(cache)
+      ENV['VVMROOT'] = cache
+      FileUtils.mkdir_p(cache)
       Vvm::Installer.fetch
       [VERSION1, VERSION2].each do |v|
         i = Vvm::Installer.new(v, [], true)
@@ -39,9 +39,7 @@ RSpec.configure do |config|
 
   config.before :all do
     @tmp = Dir.mktmpdir
-    unless self.class.metadata[:disable_cache]
-      FileUtils.cp_r(get_cache_dir, @tmp)
-    end
+    FileUtils.cp_r(cache_dir, @tmp) unless self.class.metadata[:disable_cache]
     ENV['VVMROOT'] = File.expand_path(File.join(@tmp, '.vvm_cache'))
     ENV['VVMOPT']  = nil
   end
@@ -55,24 +53,24 @@ RSpec.configure do |config|
   config.before(:all, src: true) { cp_src_dir }
 end
 
-def get_cache_dir
+def cache_dir
   File.expand_path(File.join(File.dirname(__FILE__), '..', '.vvm_cache'))
 end
 
 def remove_directories
-  [get_src_dir, get_vims_dir, get_vims_dir, get_etc_dir].each do |dir|
+  [src_dir, vimorg_dir, vims_dir, etc_dir].each do |dir|
     FileUtils.rm_rf(dir) if File.exist?(dir)
   end
 end
 
 def cp_vimorg_dir
-  return if File.exist?(get_vimorg_dir)
-  FileUtils.mkdir_p(get_repos_dir)
-  FileUtils.cp_r(File.join(get_cache_dir, 'repos', 'vimorg'), get_repos_dir)
+  return if File.exist?(vimorg_dir)
+  FileUtils.mkdir_p(repos_dir)
+  FileUtils.cp_r(File.join(cache_dir, 'repos', 'vimorg'), repos_dir)
 end
 
 def cp_src_dir
-  return if File.exist?(get_src_dir(@version))
-  FileUtils.mkdir_p(get_src_dir)
-  FileUtils.cp_r(File.join(get_cache_dir, 'src', @version), get_src_dir)
+  return if File.exist?(src_dir(@version))
+  FileUtils.mkdir_p(src_dir)
+  FileUtils.cp_r(File.join(cache_dir, 'src', @version), src_dir)
 end

@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Yuu Shigetani"]
-  s.date = "2015-02-20"
+  s.date = "2015-02-21"
   s.description = "vim version manager."
   s.email = "s2g4t1n2@gmail.com"
   s.executables = ["vvm"]

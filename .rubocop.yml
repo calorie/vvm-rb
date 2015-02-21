@@ -11,17 +11,7 @@ AllCops:
     - vvm-rb.gemspec
 LineLength:
   Max: 90
-MethodLength:
-  Max: 30
-RedundantReturn:
-  Enabled: false
 Documentation:
   Enabled: false
 SpecialGlobalVars:
-  Enabled: false
-AccessorMethodName:
-  Enabled: false
-PredicateName:
-  Enabled: false
-FileName:
   Enabled: false

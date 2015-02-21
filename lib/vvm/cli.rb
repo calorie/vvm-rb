@@ -70,7 +70,7 @@ module Vvm
       def invoke_command(command, *args)
         validate_before_invoke(command.name)
         Installer.pull if %w(install list).include?(command.name)
-        Installer.fetch unless File.exist?(get_vimorg_dir)
+        Installer.fetch unless File.exist?(vimorg_dir)
         super
       end
     end

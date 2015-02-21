@@ -7,17 +7,19 @@ module Vvm
     end
 
     def uninstall
-      current  = get_current_dir
-      vims_dir = get_vims_dir(@version)
-      src_dir  = get_src_dir(@version)
-      if File.exist?(current)
-        target = File.readlink(current)
-        if target == vims_dir
-          abort "#{@version} can not be uninstalled; it is currently used."
-        end
-      end
-      FileUtils.rm_rf(src_dir) if File.exist?(src_dir)
-      FileUtils.rm_rf(vims_dir) if File.exist?(vims_dir)
+      abort "#{@version} can not be uninstalled; It is currently used." if used?
+      vims = vims_dir(@version)
+      src  = src_dir(@version)
+      FileUtils.rm_rf(src) if File.exist?(src)
+      FileUtils.rm_rf(vims) if File.exist?(vims)
+    end
+
+    private
+
+    def used?
+      current = current_dir
+      return false unless File.exist?(current)
+      File.readlink(current) == vims_dir(@version)
     end
   end
 end

@@ -7,8 +7,8 @@ describe 'Installer', disable_cache: true do
     @installer    = Vvm::Installer.new(@version, [], true)
   end
 
-  let(:version_src_dir) { get_src_dir(@version) }
-  let(:version_vims_dir) { get_vims_dir(@version) }
+  let(:version_src_dir) { src_dir(@version) }
+  let(:version_vims_dir) { vims_dir(@version) }
   let(:vim) { File.join(version_vims_dir, 'bin', 'vim') }
 
   describe 'install' do
@@ -16,7 +16,7 @@ describe 'Installer', disable_cache: true do
       before(:all) { Vvm::Installer.fetch }
 
       it 'exists vimorg dir' do
-        expect(File.exist?(get_vimorg_dir)).to be_truthy
+        expect(File.exist?(vimorg_dir)).to be_truthy
       end
 
       it 'success to clone' do
@@ -24,13 +24,13 @@ describe 'Installer', disable_cache: true do
       end
 
       it 'exists configure file' do
-        expect(File.exist?(File.join(get_vimorg_dir, 'configure'))).to be_truthy
+        expect(File.exist?(File.join(vimorg_dir, 'configure'))).to be_truthy
       end
     end
 
     context 'pull', clean: true, vimorg: true do
       before :all do
-        Dir.chdir(get_vimorg_dir) { system('hg rollback') }
+        Dir.chdir(vimorg_dir) { system('hg rollback') }
         Vvm::Installer.pull
       end
 
@@ -39,7 +39,7 @@ describe 'Installer', disable_cache: true do
       end
 
       it 'vim is uptodate' do
-        Dir.chdir(get_vimorg_dir) do
+        Dir.chdir(vimorg_dir) do
           expect(`export LANG=en_US.UTF-8;hg pull`).to match(/no changes found/)
         end
       end
@@ -84,11 +84,11 @@ describe 'Installer', disable_cache: true do
         before(:all) { Vvm::Installer.cp_etc }
 
         it 'exists etc dir' do
-          expect(File.exist?(get_etc_dir)).to be_truthy
+          expect(File.exist?(etc_dir)).to be_truthy
         end
 
         it 'exists login file' do
-          expect(File.exist?(get_login_file)).to be_truthy
+          expect(File.exist?(login_file)).to be_truthy
         end
       end
 
@@ -100,7 +100,7 @@ describe 'Installer', disable_cache: true do
         it 'exists login file' do
           path = File.join(File.dirname(__FILE__), '..', 'etc', 'login')
           login = File.expand_path(path)
-          expect(FileUtils).to receive(:cp).with(login, get_etc_dir)
+          expect(FileUtils).to receive(:cp).with(login, etc_dir)
           Vvm::Installer.cp_etc
         end
       end
