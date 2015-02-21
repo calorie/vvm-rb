@@ -69,8 +69,8 @@ module Vvm
     no_commands do
       def invoke_command(command, *args)
         validate_before_invoke(command.name)
-        Installer.pull if %w(install list).include?(command.name)
         Installer.fetch unless File.exist?(vimorg_dir)
+        Installer.pull if %w(install list).include?(command.name)
         super
       end
     end
