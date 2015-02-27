@@ -6,7 +6,7 @@ module Vvm
 
     def validate_before_invoke(command)
       version? if %w(install rebuild use uninstall).include?(command)
-      hg? if %w(install reinstall rebuild list).include?(command)
+      hg? if %w(install reinstall rebuild list update).include?(command)
       new_version? if command == 'install'
       installed_version? if %w(reinstall rebuild use uninstall).include?(command)
     end
@@ -21,7 +21,9 @@ module Vvm
       true
     end
 
-    def new_version?(ver = version)
+    def new_version?(ver = nil)
+      Installer.pull
+      ver = version if ver.nil?
       abort "#{ver} is already installed." if version_include?(ver)
       true
     end

@@ -13,15 +13,14 @@ module Vvm
       i.configure
       i.make_install
       Installer.cp_etc
-
       invoke :use, [version], {} if options[:use]
       i.message
     end
 
     desc 'update', 'Update to latest version of Vim'
     def update
-      current = Version.current
-      if current == 'system'
+      Installer.pull
+      if (current = Version.current) == 'system'
         run 'vvm install --use latest'
         run 'vvm use system' unless $?.success?
       else
@@ -53,6 +52,7 @@ module Vvm
 
     desc 'list', 'Look available versions of Vim.'
     def list
+      Installer.pull
       puts Version.list.join("\n")
     end
 
@@ -69,8 +69,6 @@ module Vvm
     no_commands do
       def invoke_command(command, *args)
         validate_before_invoke(command.name)
-        Installer.fetch unless File.exist?(vimorg_dir)
-        Installer.pull if %w(install list).include?(command.name)
         super
       end
     end

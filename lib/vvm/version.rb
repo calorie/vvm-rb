@@ -1,7 +1,7 @@
 module Vvm
   class Version
     def self.list
-      Installer.fetch unless File.exist?(vimorg_dir)
+      abort "#{vimorg_dir} not found." unless File.exist?(vimorg_dir)
       Dir.chdir(vimorg_dir) do
         list = `hg tags`.split.reverse
         return list.values_at(* list.each_index.select(&:odd?))

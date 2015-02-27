@@ -16,6 +16,7 @@ module Vvm
     end
 
     def self.pull
+      fetch unless File.exist?(vimorg_dir)
       Dir.chdir(vimorg_dir) { system('hg -q pull') }
     end
 

@@ -31,6 +31,12 @@ describe 'Installer', disable_cache: true do
     context 'pull', clean: true, vimorg: true do
       before :all do
         Dir.chdir(vimorg_dir) { system('hg rollback') }
+      end
+
+      it 'vimorg_dir not found' do
+        allow(File).to receive(:exist?).with(vimorg_dir).and_return(false)
+        allow(Vvm::Installer).to receive(:fetch).and_return(true)
+        expect(Vvm::Installer).to receive(:fetch)
         Vvm::Installer.pull
       end
 

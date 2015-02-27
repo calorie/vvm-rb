@@ -133,6 +133,10 @@ describe 'Validator' do
   end
 
   describe 'new_version?' do
+    before do
+      allow(Vvm::Installer).to receive(:pull).and_return(true)
+    end
+
     context 'with arg' do
       context 'new version' do
         it 'success to run the method' do
