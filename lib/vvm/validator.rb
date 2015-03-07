@@ -2,13 +2,21 @@ require 'mkmf'
 
 module Vvm
   module Validator
+    METHOD_MAP = {
+      install:   %w(version? hg? new_version?),
+      update:    %w(hg?),
+      reinstall: %w(hg? installed_version?),
+      rebuild:   %w(version? hg? installed_version?),
+      use:       %w(version? installed_version?),
+      list:      %w(hg?),
+      uninstall: %w(version? installed_version?)
+    }
+
     module_function
 
     def validate_before_invoke(command)
-      version? if %w(install rebuild use uninstall).include?(command)
-      hg? if %w(install reinstall rebuild list update).include?(command)
-      new_version? if command == 'install'
-      installed_version? if %w(reinstall rebuild use uninstall).include?(command)
+      return unless validations = METHOD_MAP[command.to_sym]
+      validations.each { |m| send(m) }
     end
 
     def hg?
