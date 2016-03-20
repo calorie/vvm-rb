@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Validator' do
   include Vvm::Validator
 
-  NEW_VERSION = 'v7-4-050'
+  NEW_VERSION = 'v7.4.050'
 
   describe 'validate_before_invoke' do
     before do

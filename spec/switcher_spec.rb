@@ -31,7 +31,7 @@ describe 'Switcher' do
 
     context 'unknown version' do
       before :all do
-        @switcher = Vvm::Switcher.new('v7-5')
+        @switcher = Vvm::Switcher.new('v7.5')
       end
 
       it 'raise error' do

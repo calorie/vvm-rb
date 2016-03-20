@@ -19,7 +19,7 @@ module Vvm
     end
 
     def self.latest
-      list.select { |v| v =~ /\Av7-.+\z/ }.last
+      list.select { |v| v =~ /\Av7\..+\z/ }.last
     end
 
     def self.current
@@ -28,7 +28,7 @@ module Vvm
     end
 
     def self.convert(version)
-      "v#{version.gsub(/\./, '-')}"
+      "v#{version}"
     end
 
     def self.format(version)

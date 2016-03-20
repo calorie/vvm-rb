@@ -44,8 +44,8 @@ module Vvm
     private
 
     def find_version
-      version_regex = /\Av7-.+\z|\A(\d\.\d(a|b){0,1}(\.\d+){0,1})\z/
-      regex = /(\Astart\z|\Atip\z|\Asystem\z|\Alatest\z|#{version_regex})/
+      version_regex = /\Av7\..+\z|\A(\d\.\d(a|b){0,1}(\.\d+){0,1})\z/
+      regex = /(\Atip\z|\Asystem\z|\Alatest\z|#{version_regex})/
       $*.find { |v| v =~ regex }
     end
 

@@ -10,7 +10,7 @@ describe 'Version' do
     end
 
     it 'echo available vim versions' do
-      expect(Vvm::Version.list.join("\n")).to match(/\Astart\n(v7-.+\n)+tip\z/)
+      expect(Vvm::Version.list.join("\n")).to match(/\A(v7\..+\n)+tip\z/)
     end
   end
 
@@ -40,7 +40,7 @@ describe 'Version' do
 
   describe 'latest' do
     it 'return latest vim version' do
-      expect(Vvm::Version.latest).to match(/\Av7-.+\z/)
+      expect(Vvm::Version.latest).to match(/\Av7\..+\z/)
     end
   end
 
@@ -62,26 +62,26 @@ describe 'Version' do
 
   describe 'convert' do
     it 'version to tag' do
-      expect(Vvm::Version.convert('7.4.112')).to eq 'v7-4-112'
+      expect(Vvm::Version.convert('7.4.112')).to eq 'v7.4.112'
     end
   end
 
   describe 'format' do
     context 'tag' do
       it 'return formated vim version' do
-        expect(Vvm::Version.format('v7-4-112')).to eq 'v7-4-112'
+        expect(Vvm::Version.format('v7.4.112')).to eq 'v7.4.112'
       end
     end
 
     context 'dicimal version' do
       it 'return formated vim version' do
-        expect(Vvm::Version.format('7.4a.001')).to eq 'v7-4a-001'
+        expect(Vvm::Version.format('7.4a.001')).to eq 'v7.4a.001'
       end
     end
 
     context 'latest' do
       it 'return latest vim version' do
-        expect(Vvm::Version.format('latest')).to match(/\Av7-.+\z/)
+        expect(Vvm::Version.format('latest')).to match(/\Av7\..+\z/)
       end
     end
   end
