@@ -9,4 +9,8 @@ group :development do
   gem 'jeweler', '~> 2.0'
   gem 'simplecov', '~> 0.9.2'
   gem 'coveralls', '~> 0.7.10', require: false
+
+  platforms :ruby_19 do
+    gem 'tins', '~> 1.6.0'
+  end
 end
