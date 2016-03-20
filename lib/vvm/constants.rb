@@ -1,3 +1,3 @@
 module Vvm
-  VIM_URI = 'https://vim.googlecode.com/hg/'
+  VIM_URI = 'https://bitbucket.org/vim-mirror/vim'
 end
