@@ -10,7 +10,7 @@ describe 'Version' do
     end
 
     it 'echo available vim versions' do
-      expect(Vvm::Version.list.join("\n")).to match(/\A(v7\..+\n)+tip\z/)
+      expect(Vvm::Version.list.join("\n")).to match(/\A(v\d\..+\n)+tip\z/)
     end
   end
 
@@ -40,7 +40,7 @@ describe 'Version' do
 
   describe 'latest' do
     it 'return latest vim version' do
-      expect(Vvm::Version.latest).to match(/\Av7\..+\z/)
+      expect(Vvm::Version.latest).to match(/\Av\d\..+\z/)
     end
   end
 
@@ -81,7 +81,7 @@ describe 'Version' do
 
     context 'latest' do
       it 'return latest vim version' do
-        expect(Vvm::Version.format('latest')).to match(/\Av7\..+\z/)
+        expect(Vvm::Version.format('latest')).to match(/\Av\d\..+\z/)
       end
     end
   end
