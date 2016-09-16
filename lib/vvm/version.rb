@@ -19,7 +19,7 @@ module Vvm
     end
 
     def self.latest
-      list.select { |v| v =~ /\Av7\..+\z/ }.last
+      list.select { |v| v =~ /\Av\d\..+\z/ }.last
     end
 
     def self.current
