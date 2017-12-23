@@ -9,8 +9,4 @@ group :development do
   gem 'rspec', '~> 3.2'
   gem 'rubocop', '~> 0.52.0'
   gem 'simplecov', '~> 0.15.1'
-
-  platforms :ruby_19 do
-    gem 'tins', '~> 1.6.0'
-  end
 end
