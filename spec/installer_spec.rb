@@ -1,8 +1,9 @@
 require 'spec_helper'
+require 'mkmf'
 
 describe 'Installer', disable_cache: true do
   before :all do
-    ENV['VVMOPT'] = '--enable-rubyinterp'
+    ENV['VVMOPT'] = "--enable-rubyinterp --with-ruby-command=#{find_executable('ruby')}"
     @version      = VERSION1
     @installer    = Vvm::Installer.new(@version, [], true)
   end

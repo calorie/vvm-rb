@@ -15,6 +15,7 @@ require 'rspec'
 require 'fileutils'
 require 'tmpdir'
 require 'vvm'
+require 'vvm/ext/mkmf'
 
 VERSION1 = 'v7.4.083'.freeze
 VERSION2 = 'v7.4.103'.freeze

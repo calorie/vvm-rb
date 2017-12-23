@@ -3,8 +3,5 @@ rvm:
   - 2.2.2
   - 2.3.0
   - 2.4.0
-env:
-  global:
-    rvm_disable_binary_flag=1
 notifications:
   email: false
