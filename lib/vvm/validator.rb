@@ -3,14 +3,14 @@ require 'mkmf'
 module Vvm
   module Validator
     METHOD_MAP = {
-      install:   %w(version? hg? new_version?),
-      update:    %w(hg?),
-      reinstall: %w(hg? installed_version?),
-      rebuild:   %w(version? hg? installed_version?),
-      use:       %w(version? installed_version?),
-      list:      %w(hg?),
-      uninstall: %w(version? installed_version?)
-    }
+      install:   %w[version? hg? new_version?],
+      update:    %w[hg?],
+      reinstall: %w[hg? installed_version?],
+      rebuild:   %w[version? hg? installed_version?],
+      use:       %w[version? installed_version?],
+      list:      %w[hg?],
+      uninstall: %w[version? installed_version?]
+    }.freeze
 
     module_function
 

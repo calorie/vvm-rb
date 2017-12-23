@@ -16,7 +16,8 @@ require 'fileutils'
 require 'tmpdir'
 require 'vvm'
 
-VERSION1, VERSION2 = 'v7.4.083', 'v7.4.103'
+VERSION1 = 'v7.4.083'.freeze
+VERSION2 = 'v7.4.103'.freeze
 
 # [todo] - test is too slow
 

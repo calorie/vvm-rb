@@ -17,3 +17,8 @@ SpecialGlobalVars:
   Enabled: false
 AssignmentInCondition:
   Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'

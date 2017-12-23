@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Validator' do
   include Vvm::Validator
 
-  NEW_VERSION = 'v7.4.050'
+  NEW_VERSION = 'v7.4.050'.freeze
 
   describe 'validate_before_invoke' do
     before do
@@ -187,7 +187,7 @@ describe 'Validator' do
   end
 
   describe 'version?' do
-    before(:all) { $* << %w(vvm install) }
+    before(:all) { $* << %w[vvm install] }
 
     context 'available tag' do
       before(:all) { $*[2] = NEW_VERSION }
@@ -234,7 +234,7 @@ describe 'Validator' do
     end
 
     context 'without arg' do
-      before(:all) { $* << %w(vvm install) }
+      before(:all) { $* << %w[vvm install] }
 
       context 'new version' do
         before(:all) { $*[2] = NEW_VERSION }
@@ -270,7 +270,7 @@ describe 'Validator' do
     end
 
     context 'without arg' do
-      before(:all) { $* << %w(vvm install) }
+      before(:all) { $* << %w[vvm install] }
 
       context 'version is installed' do
         before(:all) { $*[2] = VERSION1 }
