@@ -3,8 +3,8 @@ rvm:
   - 2.2
   - 2.3.0
   - 2.4.0
-notifications:
-  email: false
 env:
   global:
-    LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/rvm/rubies/ruby-2.2/lib:/usr/local/rvm/rubies/ruby-2.3.0/lib:/usr/local/rvm/rubies/ruby-2.4.0/lib"
+    LD_LIBRARY_PATH="$LD_LIBRARY_PATH:~/.rvm/rubies/ruby-2.2/lib:~/.rvm/rubies/ruby-2.3.0/lib:~/.rvm/rubies/ruby-2.4.0/lib"
+notifications:
+  email: false
