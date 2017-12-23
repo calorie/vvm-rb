@@ -181,7 +181,7 @@ describe 'Validator' do
       before { allow(Vvm::Validator).to receive(:find_executable).and_return(false) }
 
       it 'cannot run the method' do
-        expect(proc { Vvm::Validator.hg? }).to raise_error
+        expect(proc { Vvm::Validator.hg? }).to raise_error SystemExit
       end
     end
   end
@@ -209,7 +209,7 @@ describe 'Validator' do
       before(:all) { $*[2] = '--use' }
 
       it 'cannot run the method' do
-        expect(proc { version? }).to raise_error
+        expect(proc { version? }).to raise_error SystemExit
       end
     end
   end
@@ -228,7 +228,7 @@ describe 'Validator' do
 
       context 'version is installed' do
         it 'cannot run the method' do
-          expect(proc { new_version?(VERSION1) }).to raise_error
+          expect(proc { new_version?(VERSION1) }).to raise_error SystemExit
         end
       end
     end
@@ -248,7 +248,7 @@ describe 'Validator' do
         before(:all) { $*[2] = VERSION1 }
 
         it 'cannot run the method' do
-          expect(proc { new_version? }).to raise_error
+          expect(proc { new_version? }).to raise_error SystemExit
         end
       end
     end
@@ -264,7 +264,7 @@ describe 'Validator' do
 
       context 'version is not installed' do
         it 'cannot run the method' do
-          expect(proc { installed_version?(NEW_VERSION) }).to raise_error
+          expect(proc { installed_version?(NEW_VERSION) }).to raise_error SystemExit
         end
       end
     end
@@ -284,7 +284,7 @@ describe 'Validator' do
         before(:all) { $*[2] = NEW_VERSION }
 
         it 'cannot run the method' do
-          expect(proc { installed_version? }).to raise_error
+          expect(proc { installed_version? }).to raise_error SystemExit
         end
       end
     end

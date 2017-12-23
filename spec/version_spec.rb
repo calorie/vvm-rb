@@ -6,7 +6,7 @@ describe 'Version' do
   describe 'list' do
     it 'vimorg_dir not found' do
       allow(File).to receive(:exist?).and_return(false)
-      expect(proc { Vvm::Version.list }).to raise_error
+      expect(proc { Vvm::Version.list }).to raise_error SystemExit
     end
 
     it 'echo available vim versions' do

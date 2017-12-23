@@ -14,7 +14,7 @@ describe 'Uninstaller' do
       end
 
       it 'raise error' do
-        expect(proc { @uninstaller.uninstall }).to raise_error
+        expect(proc { @uninstaller.uninstall }).to raise_error SystemExit
       end
     end
 

@@ -35,7 +35,7 @@ describe 'Switcher' do
       end
 
       it 'raise error' do
-        expect(proc { @switcher.use }).to raise_error
+        expect(proc { @switcher.use }).to raise_error SystemExit
       end
     end
   end
