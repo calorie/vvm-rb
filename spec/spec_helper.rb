@@ -26,6 +26,7 @@ RSpec.configure do |config|
     cache = cache_dir
     unless File.exist?(cache)
       ENV['VVMROOT'] = cache
+      ENV['VVMOPT']  = nil
       FileUtils.mkdir_p(cache)
       Vvm::Installer.fetch
       [VERSION1, VERSION2].each do |v|

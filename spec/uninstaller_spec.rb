@@ -10,7 +10,7 @@ describe 'Uninstaller' do
       end
 
       after :all do
-        Switcher.new('system').use
+        Vvm::Switcher.new('system').use
       end
 
       it 'raise error' do
