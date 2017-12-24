@@ -4,7 +4,7 @@
 {<img src="https://img.shields.io/gemnasium/calorie/vvm-rb.svg" alt="Dependency Status" />}[https://gemnasium.com/calorie/vvm-rb]
 {<img src="https://img.shields.io/travis/calorie/vvm-rb.svg" />}[https://travis-ci.org/calorie/vvm-rb]
 {<img src="https://img.shields.io/coveralls/calorie/vvm-rb.svg" alt="Coverage Status" />}[https://coveralls.io/r/calorie/vvm-rb]
-{<img src="https://img.shields.io/codeclimate/github/calorie/vvm-rb.svg" />}[https://codeclimate.com/github/calorie/vvm-rb]
+{<img src="https://api.codeclimate.com/v1/badges/71c7afcbbb5aeb8d4fda/maintainability" />}[https://codeclimate.com/github/calorie/vvm-rb/maintainability]
 {<img src="http://img.shields.io/badge/license-MIT-brightgreen.svg" />}[https://raw.githubusercontent.com/calorie/vvm-rb/master/LICENSE.txt]
 
 
