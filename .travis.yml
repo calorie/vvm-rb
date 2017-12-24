@@ -5,6 +5,6 @@ rvm:
   - 2.4.0
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -y ruby ruby-dev
+  - sudo apt-get install -y ruby-dev
 notifications:
   email: false
