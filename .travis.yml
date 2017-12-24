@@ -1,10 +1,10 @@
 language: ruby
-rvm:
-  - 2.2.2
-  - 2.3.0
-  - 2.4.0
+env:
+  matrix:
+    - RUBY=2.2.2
+    - RUBY=2.3.0
+    - RUBY=2.4.0
 before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y ruby-dev
+  - rvm use $(rvm strings $RUBY) --install --disable-binary --fuzzy
 notifications:
   email: false
