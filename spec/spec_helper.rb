@@ -1,9 +1,11 @@
 require 'simplecov'
 require 'coveralls'
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+
+FORMATTERS = [
   SimpleCov::Formatter::HTMLFormatter,
   Coveralls::SimpleCov::Formatter
-])
+].freeze
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(FORMATTERS)
 SimpleCov.start do
   add_filter '/spec/'
   add_filter '/vendor/'

@@ -73,14 +73,14 @@ module Vvm
     def message
       return if !$?.success? || !@silent.empty?
       print "\e[32m"
-      puts <<-EOS
+      puts <<-MESSAGE
 
   Vim is successfully installed.  For daily use,
   please add the following line into your ~/.bash_login etc:
 
   test -f ~/.vvm-rb/etc/login && source ~/.vvm-rb/etc/login
 
-      EOS
+      MESSAGE
       print "\e[0m"
     end
   end
